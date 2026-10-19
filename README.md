@@ -88,7 +88,35 @@ js/
   interfaccia.js      schede, login finto, barre dello stato dei servizi
 img/
   logo-laboratorio.png  logo del laboratorio, ridimensionato a 900 px di larghezza
+docker-compose.yml    scheletro dei servizi del server
+Caddyfile             ingresso unico: un blocco per ogni indirizzo
+.env.example          variabili da compilare (dominio, password, versioni)
+mysql/init/           script che crea i database alla prima creazione
+config/inception/     modello delle impostazioni di INCEpTION
+exist/autodeploy/     pacchetti .xar di TEI Publisher e dei progetti
+siti/                 siti statici, una cartella per sito
+noske/                note su NoSketchEngine
 ```
+
+## Docker
+
+Il server si gestisce con Docker Compose: `docker-compose.yml` definisce i servizi e `Caddyfile` instrada gli indirizzi. Sono uno **scheletro non testato su un server vero**: la sintassi dei due file è stata controllata, ma i servizi non sono mai stati avviati.
+
+Per provarlo:
+
+1. Copia `.env.example` in `.env` e compila dominio, email e password.
+2. Copia `config/inception/settings.properties.example` in `config/inception/settings.properties` e inserisci la password.
+3. Controlla i punti segnati `TODO` nei file: versioni e nomi delle immagini, impostazioni di INCEpTION, percorsi di eXist-db e TEI Publisher.
+4. Avvia con `docker compose up -d`.
+
+Ancora da fare:
+
+- **NoSketchEngine**: non è definito, perché non so se esista un'immagine ufficiale (vedi `noske/LEGGIMI.md`).
+- **Sito A**: dipende da come è fatto il sito; nel file c'è un blocco commentato da adattare.
+- **Backup**: non è nel file Compose. Serve un job notturno con un dump di MySQL e la copia cifrata dei volumi su uno storage esterno.
+- **Git via SSH** su Forgejo: richiede una porta in più.
+- **Segreti**: `.env` e `settings.properties` sono esclusi dal repository. Non committarli.
+- **Memoria**: i `mem_limit` sono circa 1,5 volte le stime e vanno regolati dopo aver misurato l'uso reale.
 
 ## Come modificare
 

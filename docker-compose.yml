@@ -1,0 +1,156 @@
+# Server del Laboratorio Sperimentale: Docker Compose
+#
+# Questo è uno SCHELETRO, non una configurazione testata. Prima di usarlo:
+#   1. copia .env.example in .env e compila i valori;
+#   2. copia config/inception/settings.properties.example in config/inception/settings.properties;
+#   3. controlla tutti i punti segnati TODO (versioni e nomi delle immagini, impostazioni).
+#
+# Avvio:   docker compose up -d
+# Stato:   docker compose ps
+# Registro di un servizio:   docker compose logs -f forgejo
+#
+# Solo Caddy espone porte verso Internet. Gli altri servizi si parlano
+# sulla rete interna e sono raggiungibili solo attraverso Caddy.
+# I tetti di memoria (mem_limit) sono circa 1,5 volte le stime del README.
+
+name: lab
+
+services:
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      DOMINIO: ${DOMINIO}
+      EMAIL_ADMIN: ${EMAIL_ADMIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./siti:/srv/siti:ro          # siti statici, uno per cartella
+      - caddy_data:/data             # certificati: da includere nel backup
+      - caddy_config:/config
+    mem_limit: 256m
+
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      # letti dallo script mysql/init/01-database.sh alla prima creazione
+      FORGEJO_DB_PASSWORD: ${FORGEJO_DB_PASSWORD}
+      INCEPTION_DB_PASSWORD: ${INCEPTION_DB_PASSWORD}
+      SITO_A_DB_PASSWORD: ${SITO_A_DB_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p\"$$MYSQL_ROOT_PASSWORD\""]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    mem_limit: 1g
+
+  forgejo:
+    image: codeberg.org/forgejo/forgejo:${FORGEJO_VERSION}   # TODO verificare la versione da usare
+    restart: unless-stopped
+    environment:
+      FORGEJO__database__DB_TYPE: mysql
+      FORGEJO__database__HOST: mysql:3306
+      FORGEJO__database__NAME: forgejo
+      FORGEJO__database__USER: forgejo
+      FORGEJO__database__PASSWD: ${FORGEJO_DB_PASSWORD}
+      FORGEJO__server__DOMAIN: git.${DOMINIO}
+      FORGEJO__server__ROOT_URL: https://git.${DOMINIO}/
+      FORGEJO__service__DISABLE_REGISTRATION: "true"
+    # TODO: se serve git via SSH, pubblicare una porta (per esempio 2222:22)
+    volumes:
+      - forgejo_data:/data
+    depends_on:
+      mysql:
+        condition: service_healthy
+    expose:
+      - "3000"
+    mem_limit: 768m
+
+  inception:
+    image: ghcr.io/inception-project/inception:${INCEPTION_VERSION}   # TODO verificare registro e nome dell'immagine
+    restart: unless-stopped
+    volumes:
+      - inception_data:/export       # TODO verificare la cartella dati nell'immagine
+      - ./config/inception/settings.properties:/export/settings.properties:ro
+    depends_on:
+      mysql:
+        condition: service_healthy
+    expose:
+      - "8080"
+    mem_limit: 3g
+
+  exist:
+    # eXist-db ospita il sito del progetto B e TEI Publisher.
+    image: existdb/existdb:${EXIST_VERSION}   # TODO verificare la versione
+    restart: unless-stopped
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xms512m -Xmx1536m"   # TODO regolare in base ai dati
+    volumes:
+      - exist_data:/exist/data
+      # TODO: mettere qui i pacchetti .xar di TEI Publisher e dell'app del progetto.
+      # Verificare nella documentazione che la cartella di autodeploy sia questa.
+      - ./exist/autodeploy:/exist/autodeploy:ro
+    expose:
+      - "8080"
+    mem_limit: 3g
+
+  kuma:
+    image: louislam/uptime-kuma:1
+    restart: unless-stopped
+    volumes:
+      - kuma_data:/app/data
+    expose:
+      - "3001"
+    mem_limit: 256m
+
+  # --- Da configurare ----------------------------------------------------
+  #
+  # NoSketchEngine: non so se esista un'immagine ufficiale. Verificare se ce n'è
+  # una mantenuta, altrimenti scrivere un Dockerfile in noske/ (vedi noske/LEGGIMI.md).
+  #
+  #  noske:
+  #    build: ./noske
+  #    restart: unless-stopped
+  #    volumes:
+  #      - ./data/corpora:/corpora     # TODO percorsi attesi da NoSketchEngine
+  #    expose:
+  #      - "80"                         # TODO verificare la porta
+  #    mem_limit: 3g
+  #
+  # Sito di progetto A (modello ListTyp, MySQL): dipende da come è fatto il sito.
+  # Serve un container con l'applicazione, collegato al database "sito_a".
+  #
+  #  sito-a:
+  #    build: ./siti-app/sito-a        # TODO
+  #    restart: unless-stopped
+  #    environment:
+  #      DB_HOST: mysql
+  #      DB_NAME: sito_a
+  #      DB_USER: sito_a
+  #      DB_PASSWORD: ${SITO_A_DB_PASSWORD}
+  #    depends_on:
+  #      mysql:
+  #        condition: service_healthy
+  #    expose:
+  #      - "80"
+  #    mem_limit: 768m
+
+volumes:
+  caddy_data:
+  caddy_config:
+  mysql_data:
+  forgejo_data:
+  inception_data:
+  exist_data:
+  kuma_data:

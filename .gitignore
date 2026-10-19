@@ -1,2 +1,5 @@
 .DS_Store
 .vscode/
+.env
+config/inception/settings.properties
+data/

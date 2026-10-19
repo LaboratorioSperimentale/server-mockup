@@ -1,0 +1,12 @@
+# Copia in settings.properties e sostituisci la password con quella di INCEPTION_DB_PASSWORD.
+# Il file settings.properties non va committato.
+#
+# TODO: verificare nella guida all'amministrazione di INCEpTION i nomi delle impostazioni,
+# il dialetto e il driver. Se il collegamento a MySQL 8 dà problemi di autenticazione,
+# valutare MariaDB al posto di MySQL per tutto il server.
+
+database.dialect=org.hibernate.dialect.MariaDBDialect
+database.driver=org.mariadb.jdbc.Driver
+database.url=jdbc:mariadb://mysql:3306/inception?useUnicode=true&characterEncoding=UTF-8
+database.username=inception
+database.password=cambiami

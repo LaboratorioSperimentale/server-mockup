@@ -1,0 +1,66 @@
+# Caddy: ingresso unico del server.
+# Sceglie il servizio dal nome dell'indirizzo e gestisce i certificati HTTPS.
+# DOMINIO e EMAIL_ADMIN arrivano da .env tramite docker-compose.yml.
+# I nomi dei servizi (forgejo, inception, ...) sono quelli di docker-compose.yml.
+
+{
+	email {$EMAIL_ADMIN}
+}
+
+(comune) {
+	encode zstd gzip
+}
+
+# Interrogazione dei corpora (NoSketchEngine).
+# Finché il servizio "noske" non è definito, risponde con errore 502.
+corpora.{$DOMINIO} {
+	import comune
+	reverse_proxy noske:80   # TODO verificare la porta
+}
+
+# Annotazione dei testi (INCEpTION)
+annotazione.{$DOMINIO} {
+	import comune
+	reverse_proxy inception:8080
+}
+
+# Codice (Forgejo)
+git.{$DOMINIO} {
+	import comune
+	reverse_proxy forgejo:3000
+}
+
+# Sito di progetto A (stile ListTyp).
+# Finché il servizio "sito-a" non è definito, risponde con errore 502.
+progetto-a.{$DOMINIO} {
+	import comune
+	reverse_proxy sito-a:80
+}
+
+# Sito di progetto B (eXist-db)
+progetto-b.{$DOMINIO} {
+	import comune
+	reverse_proxy exist:8080   # TODO verificare il percorso dell'app (eXist usa il prefisso /exist)
+}
+
+# Testi TEI (TEI Publisher, dentro eXist-db)
+testi.{$DOMINIO} {
+	import comune
+	reverse_proxy exist:8080   # TODO: mandare la radice all'app, per esempio /exist/apps/tei-publisher/
+}
+
+# Stato dei servizi (Uptime Kuma)
+stato.{$DOMINIO} {
+	import comune
+	reverse_proxy kuma:3001
+}
+
+# Sito della formazione: file statici generati da Obsidian (per esempio con Quartz).
+# Si caricano in siti/formazione/ e Caddy li serve subito.
+formazione.{$DOMINIO} {
+	import comune
+	root * /srv/siti/formazione
+	file_server
+}
+
+# Altri siti statici: copiare il blocco qui sopra, cambiando nome e cartella.
