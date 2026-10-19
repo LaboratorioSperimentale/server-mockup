@@ -1,0 +1,43 @@
+# Demo locale del server del Laboratorio Sperimentale.
+# Avvia: docker compose up -d     Ferma: docker compose down
+# Poi apri http://localhost:8080 (vedi README.md in questa cartella).
+
+name: lab-demo
+
+services:
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./indice:/srv/indice:ro
+      - ./siti:/srv/siti:ro
+      # le due pagine del mockup, servite dalla cartella principale del progetto
+      - ../index.html:/srv/mockup/index.html:ro
+      - ../interfaccia.html:/srv/mockup/interfaccia.html:ro
+      - ../css:/srv/mockup/css:ro
+      - ../js:/srv/mockup/js:ro
+      - ../img:/srv/mockup/img:ro
+
+  forgejo:
+    image: codeberg.org/forgejo/forgejo:${FORGEJO_VERSION:-11}
+    restart: unless-stopped
+    environment:
+      FORGEJO__database__DB_TYPE: sqlite3
+      FORGEJO__server__DOMAIN: git.localhost
+      FORGEJO__server__ROOT_URL: http://git.localhost:8080/
+    volumes:
+      - forgejo_data:/data
+
+  kuma:
+    image: louislam/uptime-kuma:1
+    restart: unless-stopped
+    volumes:
+      - kuma_data:/app/data
+
+volumes:
+  forgejo_data:
+  kuma_data:

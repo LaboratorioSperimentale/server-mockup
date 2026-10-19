@@ -1,0 +1,59 @@
+# Caddy della demo locale: stessa idea del server vero, ma in HTTP su porta 8080
+# e con indirizzi *.localhost, che il browser risolve sul proprio computer.
+
+{
+	auto_https off
+}
+
+# Le pagine del mockup condividono css, js e immagini: si servono da /srv/mockup.
+(mockup_statici) {
+	@mockup path /css/* /js/* /img/*
+	handle @mockup {
+		root * /srv/mockup
+		file_server
+	}
+}
+
+# Pagina iniziale con l'elenco degli indirizzi
+http://localhost {
+	import mockup_statici
+	handle {
+		root * /srv/indice
+		file_server
+	}
+}
+
+# Le due pagine del mockup: la radice mostra l'interfaccia, /schema lo schema
+http://lab.localhost {
+	import mockup_statici
+	handle {
+		redir / /interfaccia.html
+		redir /schema /index.html
+		root * /srv/mockup
+		file_server
+	}
+}
+
+# Sito statico di esempio (come il sito della formazione generato da Obsidian)
+http://formazione.localhost {
+	import mockup_statici
+	handle {
+		root * /srv/siti/formazione
+		file_server
+	}
+}
+
+# Servizi veri, in container
+http://git.localhost {
+	reverse_proxy forgejo:3000
+}
+
+http://stato.localhost {
+	reverse_proxy kuma:3001
+}
+
+# Servizi non inclusi in questa demo
+http://corpora.localhost, http://annotazione.localhost, http://testi.localhost, http://progetto-a.localhost, http://progetto-b.localhost {
+	header Content-Type "text/plain; charset=utf-8"
+	respond "{host}: servizio non incluso in questa demo locale. Nel server vero risponderebbe qui." 200
+}

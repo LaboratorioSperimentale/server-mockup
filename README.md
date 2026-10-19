@@ -96,6 +96,7 @@ config/inception/     modello delle impostazioni di INCEpTION
 exist/autodeploy/     pacchetti .xar di TEI Publisher e dei progetti
 siti/                 siti statici, una cartella per sito
 noske/                note su NoSketchEngine
+demo-locale/          mini demo da avviare in locale con Docker (vedi il suo README)
 ```
 
 ## Docker
