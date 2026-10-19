@@ -1,0 +1,157 @@
+<title>Server del Laboratorio Sperimentale</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="css/stile.css">
+<link rel="stylesheet" href="css/schema.css">
+
+<div class="banner"><div class="banner-in"><div class="logo"><img src="img/logo-laboratorio.png" alt="Laboratorio Sperimentale" width="900" height="195"></div><span>Proposta per il server virtuale</span></div></div>
+
+<main>
+  <header>
+    <div class="eyebrow">Proposta per la riunione</div>
+    <h1>Il server virtuale del Laboratorio Sperimentale</h1>
+    <p class="lead">Un'unica macchina virtuale che ospita NoSketchEngine per l'interrogazione dei corpora, INCEpTION per l'annotazione dei testi, TEI Publisher per la lettura dei testi TEI, i siti web dei progetti e Forgejo per il codice. Ogni notte i dati vengono copiati fuori dal server.</p>
+    <p class="note">NoSketchEngine è confermato. I siti di progetto seguono i modelli di ListTyp (MySQL) e di WoPoss (eXist-db), il codice sta su Forgejo. Indirizzi e cifre di risorse sono stime.</p>
+  </header>
+
+  <section>
+    <h2>Come è fatto</h2>
+    <p>Chi usa il laboratorio apre un indirizzo nel browser. Un solo punto di ingresso gestisce il certificato HTTPS e smista la richiesta al servizio giusto.</p>
+    <figure>
+      <div class="scroll">
+        <svg viewBox="0 0 1060 490" role="img" aria-label="Le persone entrano dal proxy Caddy, che smista a sito A, Forgejo, INCEpTION, eXist-db, NoSketchEngine e Uptime Kuma. Sito A, Forgejo e INCEpTION salvano in MySQL; eXist-db e NoSketchEngine nel volume dati; il backup copia tutto ogni notte su uno storage esterno.">
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-auto"><path d="M0 1 L9 5 L0 9 z" fill="currentColor"/></marker>
+          </defs>
+          <rect class="zone" x="190" y="20" width="630" height="445" rx="6"/>
+          <text class="ztitle" x="206" y="42">VPS · UBUNTU · DOCKER COMPOSE</text>
+
+          <rect class="node" x="10" y="175" width="120" height="70" rx="4"/>
+          <text x="70" y="206" text-anchor="middle">Persone</text>
+          <text class="sub" x="70" y="224" text-anchor="middle">browser</text>
+          <path class="edge" d="M130 210 H220" marker-end="url(#ah)"/>
+          <text class="lbl" x="160" y="200" text-anchor="middle">HTTPS</text>
+
+          <rect class="key" x="220" y="170" width="120" height="80" rx="4"/>
+          <text x="280" y="206" text-anchor="middle" font-weight="600">Caddy</text>
+          <text class="sub" x="280" y="224" text-anchor="middle">proxy + HTTPS</text>
+
+          <rect class="node" x="220" y="300" width="120" height="60" rx="4"/>
+          <text x="280" y="326" text-anchor="middle">Siti statici</text><text class="sub" x="280" y="343" text-anchor="middle">file su disco</text>
+          <path class="edge" d="M280 250 V300" marker-end="url(#ah)"/>
+          <text class="lbl" x="288" y="280">file</text>
+
+          <g class="svc">
+            <rect class="node" x="420" y="55" width="170" height="50" rx="4"/><text x="505" y="77" text-anchor="middle">Sito di progetto A</text><text class="sub" x="505" y="93" text-anchor="middle">progetto-a.lab.it</text>
+            <rect class="node" x="420" y="117" width="170" height="50" rx="4"/><text x="505" y="139" text-anchor="middle">Forgejo</text><text class="sub" x="505" y="155" text-anchor="middle">git.lab.it</text>
+            <rect class="node" x="420" y="179" width="170" height="50" rx="4"/><text x="505" y="201" text-anchor="middle">INCEpTION</text><text class="sub" x="505" y="217" text-anchor="middle">annotazione.lab.it</text>
+            <rect class="node" x="420" y="241" width="170" height="50" rx="4"/><text x="505" y="263" text-anchor="middle">eXist-db</text><text class="sub" x="505" y="279" text-anchor="middle">+ TEI Publisher</text>
+            <rect class="key" x="420" y="303" width="170" height="50" rx="4"/><text x="505" y="325" text-anchor="middle" font-weight="600">NoSketchEngine</text><text class="sub" x="505" y="341" text-anchor="middle">corpora.lab.it</text>
+            <rect class="node" x="420" y="365" width="170" height="50" rx="4"/><text x="505" y="387" text-anchor="middle">Uptime Kuma</text><text class="sub" x="505" y="403" text-anchor="middle">stato.lab.it</text>
+          </g>
+          <path class="edge" d="M340 210 H380 V80 H420" marker-end="url(#ah)"/>
+          <path class="edge" d="M380 142 H420" marker-end="url(#ah)"/>
+          <path class="edge" d="M380 204 H420" marker-end="url(#ah)"/>
+          <path class="edge" d="M380 210 V266 H420" marker-end="url(#ah)"/>
+          <path class="edge" d="M380 210 V328 H420" marker-end="url(#ah)"/>
+          <path class="edge" d="M380 210 V390 H420" marker-end="url(#ah)"/>
+          <text class="lbl" x="352" y="200">per nome</text>
+
+          <rect class="node" x="680" y="60" width="120" height="160" rx="4"/>
+          <text x="740" y="124" text-anchor="middle">MySQL</text><text class="sub" x="740" y="143" text-anchor="middle">sito A</text><text class="sub" x="740" y="159" text-anchor="middle">Forgejo</text><text class="sub" x="740" y="175" text-anchor="middle">INCEpTION</text>
+          <path class="edge" d="M590 80 H680" marker-end="url(#ah)"/>
+          <path class="edge" d="M590 142 H680" marker-end="url(#ah)"/>
+          <path class="edge" d="M590 204 H680" marker-end="url(#ah)"/>
+          <text class="lbl" x="598" y="73">SQL</text>
+
+          <rect class="node" x="680" y="260" width="120" height="80" rx="4"/>
+          <text x="740" y="296" text-anchor="middle">Volume /data</text><text class="sub" x="740" y="314" text-anchor="middle">corpora · XML · repo</text>
+          <path class="edge" d="M590 266 H680" marker-end="url(#ah)"/>
+          <path class="edge" d="M590 328 H680" marker-end="url(#ah)"/>
+          <path class="edge" d="M740 220 V260" marker-end="url(#ah)"/>
+          <text class="lbl" x="748" y="245">dati</text>
+
+          <rect class="key" x="680" y="385" width="120" height="60" rx="4"/>
+          <text x="740" y="411" text-anchor="middle">Backup</text><text class="sub" x="740" y="428" text-anchor="middle">restic · 03:00</text>
+          <path class="edge acc" d="M740 340 V385" marker-end="url(#ah)"/>
+          <text class="lbl" x="748" y="368">legge</text>
+
+          <rect class="node" x="890" y="385" width="160" height="60" rx="4"/>
+          <text x="970" y="411" text-anchor="middle">Storage esterno</text><text class="sub" x="970" y="428" text-anchor="middle">altro provider</text>
+          <path class="edge acc" d="M800 415 H890" marker-end="url(#ah)"/>
+          <text class="lbl" x="845" y="405" text-anchor="middle">cifrato</text>
+        </svg>
+      </div>
+      <figcaption>Tutto il traffico passa da Caddy, che sceglie il servizio dal nome dell'indirizzo. Il sito A, Forgejo e INCEpTION salvano in MySQL; eXist-db, che ospita anche TEI Publisher, è già un database XML e scrive direttamente nel volume dati, dove NoSketchEngine legge anche gli indici dei corpora. Il backup legge database e volume ogni notte e li copia fuori dal server.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Servizi installati</h2>
+    <p>Ogni servizio gira in un container separato, quindi si può aggiornare o spegnere senza toccare gli altri.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Servizio</th><th>A cosa serve</th><th>Indirizzo</th><th>RAM stimata</th></tr></thead>
+        <tbody>
+          <tr><td class="n">Caddy</td><td>Ingresso unico, certificati HTTPS automatici</td><td class="m">porta 443</td><td class="r">0,1 GB</td></tr>
+          <tr><td class="n">NoSketchEngine</td><td>Interrogazione dei corpora: concordanze, frequenze, collocazioni</td><td class="m">corpora.lab.it</td><td class="r">2,0 GB</td></tr>
+          <tr><td class="n">Sito di progetto A</td><td>Banca dati online con sito pubblico e backoffice con login, sul modello di ListTyp. Usa MySQL</td><td class="m">progetto-a.lab.it</td><td class="r">0,4 GB</td></tr>
+          <tr><td class="n">eXist-db</td><td>Sito e database XML di un progetto, sul modello di WoPoss. Il database è integrato</td><td class="m">progetto-b.lab.it</td><td class="r">1,5 GB</td></tr>
+          <tr><td class="n">TEI Publisher</td><td>Pubblicazione e lettura dei testi TEI, con ricerca e indici. Gira dentro eXist-db, senza un servizio in più</td><td class="m">testi.lab.it</td><td class="r">0,5 GB</td></tr>
+          <tr><td class="n">Siti statici</td><td>Pagine e interfacce già pronte (HTML e JavaScript), servite direttamente da Caddy senza database. Per esempio un sito come prepararsi-al-presente, se la sua interfaccia è statica</td><td class="m">nome.lab.it</td><td class="r">trascurabile</td></tr>
+          <tr><td class="n">Sito della formazione</td><td>Attività formative del laboratorio, sito pubblico senza login: le note scritte in Obsidian diventano pagine HTML con uno strumento come Quartz, poi servite da Caddy</td><td class="m">formazione.lab.it</td><td class="r">trascurabile</td></tr>
+          <tr><td class="n">Forgejo</td><td>Repository di codice, issue e revisioni del laboratorio</td><td class="m">git.lab.it</td><td class="r">0,4 GB</td></tr>
+          <tr><td class="n">INCEpTION</td><td>Annotazione di testi: più persone lavorano sugli stessi documenti con schemi di annotazione condivisi. Usa MySQL</td><td class="m">annotazione.lab.it</td><td class="r">2,0 GB</td></tr>
+          <tr><td class="n">MySQL</td><td>Database del sito A, di Forgejo e di INCEpTION</td><td class="m">solo interno</td><td class="r">0,6 GB</td></tr>
+          <tr><td class="n">Uptime Kuma</td><td>Pagina di stato, avviso se un servizio non risponde</td><td class="m">stato.lab.it</td><td class="r">0,15 GB</td></tr>
+          <tr><td class="n">restic</td><td>Backup notturno cifrato su storage esterno</td><td class="m">solo interno</td><td class="r">trascurabile</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Cosa succede quando…</h2>
+    <p>Tre azioni quotidiane, passo per passo.</p>
+    <div class="flows">
+      <div class="flow"><h3>Si cerca in un corpus</h3>
+        <ol><li>Si apre corpora.lab.it</li><li>Caddy passa la richiesta a NoSketchEngine</li><li>NoSketchEngine legge l'indice del corpus in /data</li><li>Le concordanze tornano nel browser</li></ol></div>
+      <div class="flow"><h3>Si aggiorna un record</h3>
+        <ol><li>Login nel backoffice del progetto</li><li>Si modifica la scheda</li><li>Il sito salva in MySQL</li><li>La modifica è subito visibile sul sito pubblico</li></ol></div>
+      <div class="flow"><h3>Si pubblica del codice</h3>
+        <ol><li>git push verso git.lab.it</li><li>Forgejo salva il repository in /data</li><li>Utenti e issue stanno in MySQL</li></ol></div>
+      <div class="flow"><h3>Si annota un testo</h3>
+        <ol><li>Login su annotazione.lab.it</li><li>Si apre un documento del progetto</li><li>Le annotazioni sono salvate in MySQL</li><li>A fine lavoro si esporta il testo annotato</li></ol></div>
+      <div class="flow"><h3>Si legge un testo TEI</h3>
+        <ol><li>Si apre testi.lab.it</li><li>TEI Publisher legge il documento da eXist-db</li><li>Lo trasforma in pagina con note e indici</li><li>La ricerca interroga lo stesso database</li></ol></div>
+      <div class="flow"><h3>Si aggiorna la formazione</h3>
+        <ol><li>Si scrive o si corregge una nota in Obsidian</li><li>Sul proprio computer si genera il sito con Quartz</li><li>Uno dei pochi redattori carica i file HTML sul server</li><li>Caddy li serve subito, senza riavvii</li></ol></div>
+      <div class="flow"><h3>Si aggiunge un corpus</h3>
+        <ol><li>Sul proprio computer si converte il TEI in formato .vert, come per DiCCAS</li><li>L'amministratore carica il file in /data</li><li>Compila l'indice con gli strumenti di NoSketchEngine</li><li>Il corpus compare nell'elenco di corpora.lab.it</li></ol></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quanta macchina serve</h2>
+    <p>Con INCEpTION e TEI Publisher i servizi usano circa 8,5 GB, quindi una VPS da 8 GB non basta. Serve una macchina da 16 GB di RAM, 4 vCPU e almeno 160 GB di disco, che lascia spazio per nuovi progetti. Il disco dipende soprattutto dai corpora, da verificare prima di scegliere la taglia.</p>
+    <div class="bar" role="img" aria-label="Uso stimato della RAM su 16 GB: NoSketchEngine 2,0, INCEpTION 2,0, eXist-db con TEI Publisher 2,0, sistema e Docker 0,8, MySQL 0,6, sito A 0,4, Forgejo 0,4, Caddy e Kuma 0,25; libero 7,55">
+      <div style="flex: 2.0"></div><div style="flex: 2.0"></div><div style="flex: 2.0"></div><div style="flex: 0.8"></div><div style="flex: 0.6"></div><div style="flex: 0.4"></div><div style="flex: 0.4"></div><div style="flex: 0.25"></div><div class="free" style="flex: 7.55"></div>
+    </div>
+    <div class="scale"><span>0 GB</span><span>RAM 16 GB</span></div>
+    <div class="legend"><span><b>NoSketchEngine</b> 2,0</span><span><b>INCEpTION</b> 2,0</span><span><b>eXist-db + TEI Publisher</b> 2,0</span><span><b>Sistema + Docker</b> 0,8</span><span><b>MySQL</b> 0,6</span><span><b>Sito A</b> 0,4</span><span><b>Forgejo</b> 0,4</span><span><b>Caddy + Kuma</b> 0,25</span><span><b>Libero</b> 7,55</span></div>
+  </section>
+
+  <section>
+    <h2>Da decidere in riunione</h2>
+    <div class="decide">
+      <div><h3>Provider e taglia</h3><p>Dove prendere la VPS e e se 16 GB di RAM bastano per i primi anni.</p></div>
+      <div><h3>Corpora</h3><p>Quali corpora caricare all'inizio (DiCCAS, con i suoi 289.480 token, è un buon primo candidato) e quanto spazio occupano una volta indicizzati.</p></div>
+      <div><h3>Progetti ospitati</h3><p>Quali altri siti portare sul server oltre ai due di partenza, con che tecnologia sono fatti e chi li mantiene.</p></div>
+      <div><h3>Dominio</h3><p>Quale nome usare per gli indirizzi e chi gestisce i record DNS.</p></div>
+      <div><h3>Dove vanno i backup</h3><p>Uno storage di un provider diverso, oppure un disco in laboratorio.</p></div>
+      <div><h3>Pubblicare i siti statici</h3><p>Poiché pochi membri aggiornano le note, il caricamento manuale dei file è sufficiente. La generazione automatica da Forgejo, che richiede un runner e un po' di RAM in più, si può valutare più avanti se i redattori aumentano.</p></div>
+      <div><h3>Chi amministra</h3><p>Chi crea gli account, applica gli aggiornamenti e riceve gli avvisi di Uptime Kuma.</p></div>
+    </div>
+  </section>
+</main>

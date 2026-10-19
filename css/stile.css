@@ -1,0 +1,90 @@
+/* Stile condiviso, ripreso dal sito del Laboratorio Sperimentale:
+   blu istituzionale, bordeaux all'hover, fondo grigio chiaro, angoli quadrati,
+   Merriweather per titoli ed etichette, Source Sans per il testo. */
+
+:root {
+  --bg: #f8f8f8; --surface: #ffffff; --surface2: #f4f4f4;
+  --fg: #222222; --muted: #5b6670;
+  --line: #dbdfe0; --line-strong: #aab5bb;
+  --primary: #00457c; --on-primary: #ffffff;
+  --accent: #81042d; --on-accent: #ffffff;
+  --tint: #e0f1f9;
+  --banner: #00457c; --bar: #81042d; --header-bg: #ffffff;
+  --ok: #1a7f43; --warn: #a85d00;
+  --font-body: "Source Sans 3", "SourceSans", Verdana, Geneva, Tahoma, sans-serif;
+  --font-serif: Merriweather, Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d1822; --surface: #13222f; --surface2: #1a2b3a;
+  --fg: #e6ecf1; --muted: #98a8b6;
+  --line: #2a3d4f; --line-strong: #4a6075;
+  --primary: #6db3ea; --on-primary: #06223a;
+  --accent: #f08aa9; --on-accent: #2a0a15;
+  --tint: #12334d;
+  --banner: #0b2f4d; --bar: #a8123f; --header-bg: #13222f;
+  --ok: #4cc27f; --warn: #f0b457; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0d1822; --surface: #13222f; --surface2: #1a2b3a;
+  --fg: #e6ecf1; --muted: #98a8b6;
+  --line: #2a3d4f; --line-strong: #4a6075;
+  --primary: #6db3ea; --on-primary: #06223a;
+  --accent: #f08aa9; --on-accent: #2a0a15;
+  --tint: #12334d;
+  --banner: #0b2f4d; --bar: #a8123f; --header-bg: #13222f;
+  --ok: #4cc27f; --warn: #f0b457; color-scheme: dark; }
+
+*, *::before, *::after { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 17px/1.55 var(--font-body); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+a { color: var(--primary); text-decoration: none; border-bottom: 1px solid var(--primary); }
+a:hover { color: var(--accent); border-bottom: 2px solid var(--accent); }
+
+h1, h2 { font-family: var(--font-serif); color: var(--primary); text-wrap: balance; }
+h1 { font-size: clamp(26px, 4.5vw, 36px); line-height: 1.2; font-weight: 700; margin: 0 0 12px; }
+h2 { font-size: 22px; line-height: 1.3; font-weight: 700; margin: 0 0 8px; padding-left: 12px; border-left: 3px solid var(--accent); }
+h3 { font-size: 17px; font-weight: 600; margin: 0 0 6px; }
+p { margin: 0; max-width: 65ch; }
+
+/* fascia in testa: logo del laboratorio e striscia con i colori del logo */
+.banner { background: var(--header-bg); color: var(--fg); position: relative; }
+.banner::after { content: ""; display: block; height: 5px;
+  background: linear-gradient(90deg, #0b66b0 0 25%, #e8333c 25% 50%, #d9328a 50% 75%, #f2c300 75% 100%); }
+.banner-in { max-width: 1040px; margin: 0 auto; padding-block: 16px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; }
+.logo { display: block; background: #ffffff; padding: 6px 10px; }
+.logo img { display: block; height: 52px; width: auto; max-width: 100%; }
+.banner span { font: 700 11px var(--font-serif); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+main { max-width: 1040px; margin: 0 auto; padding-block: 36px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; }
+
+/* etichette in Merriweather */
+.eyebrow, .cap { font: 700 11px var(--font-serif); letter-spacing: .08em; text-transform: uppercase; }
+.eyebrow { color: var(--accent); margin-bottom: 10px; }
+.cap { color: var(--muted); margin: 0 0 10px; }
+
+.pill { display: inline-block; font-size: 13px; background: var(--surface2); border: 1px solid var(--line); color: var(--fg); padding: 0 8px; line-height: 22px; white-space: nowrap; }
+
+.btn { background: var(--primary); color: var(--on-primary); border: 1px solid var(--primary); border-radius: 0; padding: 7px 16px; font-weight: 600; }
+.btn:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn.ghost { background: transparent; color: var(--primary); }
+.btn.ghost:hover { background: var(--accent); color: var(--on-accent); }
+
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); display: inline-block; }
+
+.meter { height: 10px; background: var(--surface2); border: 1px solid var(--line); overflow: hidden; }
+.meter > div { height: 100%; background: var(--primary); }
+.meterlbl { display: flex; justify-content: space-between; font: 13px var(--font-mono); color: var(--muted); margin: 6px 0 14px; font-variant-numeric: tabular-nums; }
+
+.tablewrap, .tw { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 700 11px var(--font-serif); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+td.m { font: 13px var(--font-mono); color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
