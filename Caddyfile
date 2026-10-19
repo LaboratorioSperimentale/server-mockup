@@ -11,11 +11,11 @@
 	encode zstd gzip
 }
 
-# Interrogazione dei corpora (NoSketchEngine).
-# Finché il servizio "noske" non è definito, risponde con errore 502.
+# Interrogazione dei corpora (NoSketchEngine). L'immagine ascolta sulla porta 80
+# e costruisce da sola gli indirizzi, quindi funziona dietro Caddy senza altre impostazioni.
 corpora.{$DOMINIO} {
 	import comune
-	reverse_proxy noske:80   # TODO verificare la porta
+	reverse_proxy noske:80
 }
 
 # Annotazione dei testi (INCEpTION)

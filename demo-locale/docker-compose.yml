@@ -38,6 +38,22 @@ services:
     volumes:
       - kuma_data:/app/data
 
+  # NoSketchEngine è facoltativo: pesa circa 1 GB e serve una cartella di corpora.
+  # Avvio:  CORPORA_DIR=/percorso/dei/corpora docker compose --profile noske up -d
+  noske:
+    profiles: ["noske"]
+    image: ${NOSKE_IMAGE:-eltedh/nosketch-engine:latest}
+    restart: unless-stopped
+    environment:
+      SERVER_NAME: http://corpora.localhost:8080/
+      SERVER_ALIAS: corpora.localhost
+      PRIVATE_KEY: ""
+      PUBLIC_KEY: ""
+      HTACCESS: ""
+      HTPASSWD: ""
+    volumes:
+      - ${CORPORA_DIR:-./corpora}:/corpora
+
 volumes:
   forgejo_data:
   kuma_data:

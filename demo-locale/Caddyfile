@@ -52,8 +52,17 @@ http://stato.localhost {
 	reverse_proxy kuma:3001
 }
 
+# NoSketchEngine, facoltativo (profilo "noske"): se non è avviato, mostra un avviso
+http://corpora.localhost {
+	reverse_proxy noske:80
+	handle_errors {
+		header Content-Type "text/plain; charset=utf-8"
+		respond "{host}: NoSketchEngine non è avviato. Avvialo con: CORPORA_DIR=/percorso/dei/corpora docker compose --profile noske up -d" 200
+	}
+}
+
 # Servizi non inclusi in questa demo
-http://corpora.localhost, http://annotazione.localhost, http://testi.localhost, http://progetto-a.localhost, http://progetto-b.localhost {
+http://annotazione.localhost, http://testi.localhost, http://progetto-a.localhost, http://progetto-b.localhost {
 	header Content-Type "text/plain; charset=utf-8"
 	respond "{host}: servizio non incluso in questa demo locale. Nel server vero risponderebbe qui." 200
 }

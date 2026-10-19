@@ -95,7 +95,7 @@ mysql/init/           script che crea i database alla prima creazione
 config/inception/     modello delle impostazioni di INCEpTION
 exist/autodeploy/     pacchetti .xar di TEI Publisher e dei progetti
 siti/                 siti statici, una cartella per sito
-noske/                note su NoSketchEngine
+noske/                come preparare e compilare i corpora
 demo-locale/          mini demo da avviare in locale con Docker (vedi il suo README)
 ```
 
@@ -112,7 +112,7 @@ Per provarlo:
 
 Ancora da fare:
 
-- **NoSketchEngine**: non è definito, perché non so se esista un'immagine ufficiale (vedi `noske/LEGGIMI.md`).
+- **NoSketchEngine**: è definito con l'immagine `eltedh/nosketch-engine`, la stessa del fork KIParla. È stato provato nella demo locale, dietro Caddy e con un corpus vero. Come preparare i corpora è in `noske/LEGGIMI.md`. Senza password l'interfaccia è aperta a tutti.
 - **Sito A**: dipende da come è fatto il sito; nel file c'è un blocco commentato da adattare.
 - **Backup**: non è nel file Compose. Serve un job notturno con un dump di MySQL e la copia cifrata dei volumi su uno storage esterno.
 - **Git via SSH** su Forgejo: richiede una porta in più.

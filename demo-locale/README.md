@@ -33,8 +33,9 @@ docker compose down -v     # ferma tutto e cancella anche i dati di Forgejo e Up
 | http://formazione.localhost:8080 | Sito statico di esempio |
 | http://git.localhost:8080 | Forgejo |
 | http://stato.localhost:8080 | Uptime Kuma |
+| http://corpora.localhost:8080 | NoSketchEngine (facoltativo, vedi sotto) |
 
-Questi indirizzi mostrano solo un avviso, perché i servizi non sono inclusi: `corpora`, `annotazione`, `testi`, `progetto-a`, `progetto-b` (sempre con `.localhost:8080`).
+Questi indirizzi mostrano solo un avviso, perché i servizi non sono inclusi: `annotazione`, `testi`, `progetto-a`, `progetto-b` (sempre con `.localhost:8080`).
 
 I nomi che finiscono in `.localhost` di solito li risolve già il browser sul computer locale. Se un indirizzo non si apre (può succedere con Safari), aggiungi queste righe a `/etc/hosts`:
 
@@ -48,6 +49,18 @@ I nomi che finiscono in `.localhost` di solito li risolve già il browser sul co
 - **Forgejo** mostra la pagina di installazione: lascia i valori proposti (database SQLite) e crea il primo utente, che diventa amministratore.
 - **Uptime Kuma** chiede di creare un utente alla prima visita.
 
+## NoSketchEngine (facoltativo)
+
+Usa l'immagine `eltedh/nosketch-engine` (circa 1 GB) e ha bisogno di una cartella con i corpora già indicizzati, nella struttura descritta in `../noske/LEGGIMI.md`. Non si avvia insieme agli altri servizi: si attiva con un profilo.
+
+```sh
+CORPORA_DIR=/percorso/dei/corpora docker compose --profile noske up -d
+```
+
+Poi apri http://corpora.localhost:8080. Senza la variabile `CORPORA_DIR` usa la cartella `corpora/` di questa cartella, che è vuota e ignorata da git: i corpora non vanno mai committati.
+
+Finché non lo avvii, l'indirizzo mostra un avviso. Per spegnere tutto, comprese le parti facoltative, usa `docker compose --profile noske down`.
+
 ## Cosa si può provare
 
 - Cambiare la pagina del sito statico: modifica `siti/formazione/index.html` e ricarica la pagina. Non serve riavviare nulla.
@@ -56,4 +69,4 @@ I nomi che finiscono in `.localhost` di solito li risolve già il browser sul co
 
 ## Cosa non c'è
 
-NoSketchEngine, INCEpTION, eXist-db con TEI Publisher, MySQL e il sito A non sono inclusi. Per NoSketchEngine non so se esista un'immagine pronta, e per gli altri non ho verificato i nomi delle immagini: sono nello scheletro del server vero (`docker-compose.yml` nella cartella principale).
+INCEpTION, eXist-db con TEI Publisher, MySQL e il sito A non sono inclusi: non ho verificato i nomi delle loro immagini. Sono nello scheletro del server vero (`docker-compose.yml` nella cartella principale).

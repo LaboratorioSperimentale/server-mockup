@@ -1,6 +1,7 @@
 # Server del Laboratorio Sperimentale: Docker Compose
 #
-# Questo è uno SCHELETRO, non una configurazione testata. Prima di usarlo:
+# Questo è uno SCHELETRO, non una configurazione testata (NoSketchEngine è stato provato
+# solo nella demo locale, vedi demo-locale/). Prima di usarlo:
 #   1. copia .env.example in .env e compila i valori;
 #   2. copia config/inception/settings.properties.example in config/inception/settings.properties;
 #   3. controlla tutti i punti segnati TODO (versioni e nomi delle immagini, impostazioni).
@@ -114,19 +115,27 @@ services:
       - "3001"
     mem_limit: 256m
 
+  noske:
+    # NoSketchEngine, con l'immagine del progetto ELTE-DH (la stessa del fork KIParla).
+    # Senza password e chiavi l'interfaccia è aperta a chiunque: va bene solo se i corpora sono pubblici.
+    image: ${NOSKE_IMAGE}   # TODO fissare una versione precisa invece di latest
+    restart: unless-stopped
+    environment:
+      SERVER_NAME: https://corpora.${DOMINIO}/
+      SERVER_ALIAS: corpora.${DOMINIO}
+      CITATION_LINK: ${NOSKE_CITATION_LINK}
+      PRIVATE_KEY: ""
+      PUBLIC_KEY: ""
+      HTACCESS: ""
+      HTPASSWD: ""
+    volumes:
+      # cartella con registry/ e una cartella per ogni corpus (vedi noske/LEGGIMI.md)
+      - ${CORPORA_DIR}:/corpora
+    expose:
+      - "80"
+    mem_limit: 3g
+
   # --- Da configurare ----------------------------------------------------
-  #
-  # NoSketchEngine: non so se esista un'immagine ufficiale. Verificare se ce n'è
-  # una mantenuta, altrimenti scrivere un Dockerfile in noske/ (vedi noske/LEGGIMI.md).
-  #
-  #  noske:
-  #    build: ./noske
-  #    restart: unless-stopped
-  #    volumes:
-  #      - ./data/corpora:/corpora     # TODO percorsi attesi da NoSketchEngine
-  #    expose:
-  #      - "80"                         # TODO verificare la porta
-  #    mem_limit: 3g
   #
   # Sito di progetto A (modello ListTyp, MySQL): dipende da come è fatto il sito.
   # Serve un container con l'applicazione, collegato al database "sito_a".
