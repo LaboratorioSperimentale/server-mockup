@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Server di Dipartimento</title>
+<style>
+/* Palette ripresa da ../css/stile.css; contenuto in slide.md */
+:root {
+  --bg: #f8f8f8; --surface: #ffffff; --fg: #222222; --muted: #5b6670;
+  --line: #dbdfe0; --primary: #00457c; --accent: #81042d;
+  --font-body: "Source Sans 3", Verdana, Geneva, Tahoma, sans-serif;
+  --font-serif: Merriweather, Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d1822; --surface: #13222f; --fg: #e6ecf1; --muted: #98a8b6;
+  --line: #2a3d4f; --primary: #6db3ea; --accent: #f08aa9; } }
+:root[data-theme="dark"] {
+  --bg: #0d1822; --surface: #13222f; --fg: #e6ecf1; --muted: #98a8b6;
+  --line: #2a3d4f; --primary: #6db3ea; --accent: #f08aa9; }
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 22px/1.5 var(--font-body); overflow: hidden; }
+.striscia { position: fixed; top: 0; left: 0; right: 0; height: 6px; z-index: 5;
+  background: linear-gradient(90deg, #0b66b0 0 25%, #e8333c 25% 50%, #d9328a 50% 75%, #f2c300 75% 100%); }
+
+.slide { position: absolute; inset: 6px 0 48px; padding: 5vh 8vw; display: none; flex-direction: column; justify-content: center; gap: 3vh; overflow-y: auto; }
+.slide.attiva { display: flex; }
+h1, h2 { font-family: var(--font-serif); color: var(--primary); margin: 0; text-wrap: balance; line-height: 1.2; }
+h1 { font-size: clamp(32px, 5vw, 64px); }
+h2 { font-size: clamp(26px, 3.4vw, 44px); padding-left: 16px; border-left: 4px solid var(--accent); }
+h3 { margin: 0 0 6px; font-size: 1.1em; }
+p, ul, ol { margin: 0; max-width: 60ch; }
+ul, ol { padding-left: 1.2em; } li { margin-block: .3em; }
+.sotto { font-size: 1.3em; color: var(--muted); }
+.piccolo { font-size: .8em; color: var(--muted); }
+.cover, .enfasi { background: var(--primary); color: #fff; }
+.cover h1, .enfasi h2 { color: #fff; border-color: #fff; }
+.cover .sotto, .cover .piccolo { color: #d6e6f2; }
+.enfasi p { font-size: 1.4em; max-width: 40ch; }
+.enfasi h2 { font-size: clamp(30px, 4.4vw, 58px); max-width: 24ch; }
+
+.carte { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2vw; }
+.carta { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--accent); padding: 20px 24px; }
+.carta p { font-size: .85em; }
+.carta .n { font-family: var(--font-serif); font-size: 1.6em; color: var(--accent); font-weight: 700; }
+.nega h3 { color: var(--muted); }
+
+table { border-collapse: collapse; width: 100%; font-size: .85em; background: var(--surface); }
+th, td { text-align: left; padding: .45em .8em; border-bottom: 1px solid var(--line); }
+th { background: var(--primary); color: #fff; }
+
+.flusso { display: flex; align-items: stretch; gap: 1.5vw; flex-wrap: wrap; }
+.flusso .carta { flex: 1 1 200px; }
+.freccia { align-self: center; font-size: 2em; color: var(--accent); }
+
+.note { position: fixed; left: 0; right: 0; bottom: 48px; max-height: 38vh; overflow: auto; background: var(--surface); border-top: 3px solid var(--accent); padding: 14px 8vw; font-size: 18px; display: none; z-index: 4; }
+.note.aperte { display: block; }
+.barra { position: fixed; left: 0; right: 0; bottom: 0; height: 48px; background: var(--surface); border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding-inline: 16px; font-size: 16px; color: var(--muted); z-index: 5; }
+.barra button { background: none; border: 1px solid var(--line); color: var(--fg); padding: 4px 12px; font: inherit; cursor: pointer; }
+.barra button:hover { border-color: var(--accent); color: var(--accent); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+@media print { body { overflow: visible; } .slide { display: flex !important; position: static; page-break-after: always; min-height: 100vh; } .barra, .note, .striscia { display: none !important; } }
+</style>
+</head>
+<body>
+<div class="striscia"></div>
+
+<section class="slide cover">
+  <p class="piccolo">Laboratorio Sperimentale · LILEC</p>
+  <h1>Un server condiviso per la ricerca del Dipartimento</h1>
+  <p class="sotto">Obiettivi, servizi possibili e le vostre esigenze</p>
+  <p class="piccolo">Riunione di Dipartimento · ottobre 2026</p>
+  <aside hidden>Durata prevista circa 45 minuti (15 di presentazione, 30 di discussione). Lo scopo non è presentare una soluzione già decisa, ma raccogliere le esigenze dei gruppi prima di scegliere la soluzione tecnica.</aside>
+</section>
+
+<section class="slide enfasi">
+  <h2>L’obiettivo</h2>
+  <p>Uno spazio comune per ospitare dati e servizi usati nei diversi progetti di ricerca.</p>
+  <p>Pensato per l’intero Dipartimento, non solo per il Laboratorio.</p>
+  <aside hidden>Ripartire dalla mail inviata al Dipartimento. L’iniziativa nasce da esigenze già emerse negli scorsi anni nel Laboratorio, ma la progettazione non deve essere dettata solo da quelle.</aside>
+</section>
+
+<section class="slide">
+  <h2>Perché un server condiviso</h2>
+  <div class="carte">
+    <div class="carta"><h3>Il problema</h3><p>I progetti producono piccoli dataset che, per essere accessibili, richiedono un po’ di infrastruttura. Alla fine del progetto i costi non sono più sostenibili.</p></div>
+    <div class="carta"><h3>L’idea</h3><p>Poiché i dataset sono piccoli, accorpiamo i costi e gestiamo una sola infrastruttura per tutti.</p></div>
+  </div>
+  <aside hidden>Questo è il motivo per cui il server esiste: dare una casa duratura agli output dei progetti dopo la fine dei finanziamenti. Dataset piccoli, quindi poche risorse da condividere.</aside>
+</section>
+
+<section class="slide">
+  <h2>Cosa è, cosa non è</h2>
+  <div class="carte">
+    <div class="carta"><h3>È</h3><ul>
+      <li>Un’infrastruttura server condivisa</li>
+      <li>Uno spazio per dati e servizi di ricerca</li>
+      <li>Un luogo per pubblicare gli output dei progetti</li>
+      <li>Una risorsa a disposizione di tutti i gruppi</li></ul></div>
+    <div class="carta nega"><h3>Non è</h3><ul>
+      <li>Un’infrastruttura di calcolo</li>
+      <li>Un cluster per training o elaborazioni pesanti</li>
+      <li>Una soluzione già decisa nei dettagli tecnici</li>
+      <li>Un servizio solo per il Laboratorio</li></ul></div>
+  </div>
+  <aside hidden>Sottolineare subito che non si tratta di calcolo: niente GPU o code di job.</aside>
+</section>
+
+<section class="slide">
+  <h2>Le esigenze emerse finora</h2>
+  <div class="carte">
+    <div class="carta"><h3>Consultare corpora</h3><p>NoSketch Engine per interrogare i corpora, anche con accesso riservato.</p></div>
+    <div class="carta"><h3>Pubblicare pagine</h3><p>Siti statici di presentazione e navigazione degli output di ricerca.</p></div>
+    <div class="carta"><h3>Ospitare dati</h3><p>Un luogo stabile per dati e risorse, oltre il singolo progetto o portatile.</p></div>
+  </div>
+  <p><b style="color:var(--accent)">E le vostre?</b> Queste vengono dal Laboratorio. Il punto della riunione è scoprire cosa serve agli altri gruppi.</p>
+  <aside hidden>La lista è parziale. Invitare già a pensare alle proprie esigenze; le domande specifiche arrivano alla slide 11.</aside>
+</section>
+
+<section class="slide">
+  <h2>Servizi nel mockup</h2>
+  <table>
+    <tr><th>Servizio</th><th>A cosa serve</th><th>Tecnologia</th></tr>
+    <tr><td>Corpora</td><td>Interrogazione di corpora annotati</td><td>NoSketch Engine</td></tr>
+    <tr><td>Siti statici</td><td>Pagine di progetto e output</td><td>Caddy</td></tr>
+    <tr><td>Versionamento</td><td>Codice, dati e siti dei progetti</td><td>Forgejo</td></tr>
+    <tr><td>Annotazione</td><td>Annotazione testuale collaborativa</td><td>INCEpTION</td></tr>
+    <tr><td>Archivi XML</td><td>Testi marcati e edizioni digitali</td><td>eXist-db</td></tr>
+    <tr><td>Database</td><td>Dati strutturati dei progetti</td><td>MySQL</td></tr>
+    <tr><td>Monitoraggio</td><td>Controllo che i servizi siano attivi</td><td>Uptime Kuma</td></tr>
+  </table>
+  <aside hidden>Non è una lista chiusa. Alcuni servizi sono già provati in locale (NoSketch Engine, Forgejo), altri sono segnaposto. Chiedere se manca qualcosa di importante.</aside>
+</section>
+
+<section class="slide">
+  <h2>Come potrebbe funzionare</h2>
+  <div class="flusso">
+    <div class="carta"><h3>Utenti</h3><p>Browser, un solo dominio</p></div>
+    <span class="freccia" aria-hidden="true">→</span>
+    <div class="carta"><h3>Caddy</h3><p>Un indirizzo per servizio, HTTPS automatico</p></div>
+    <span class="freccia" aria-hidden="true">→</span>
+    <div class="carta"><h3>Servizi</h3><p>Un container Docker per ciascuno, aggiornabili separatamente</p></div>
+  </div>
+  <p>Tutto descritto in Docker Compose: riproducibile, documentato e spostabile su un’altra macchina.</p>
+  <aside hidden>Ogni servizio è isolato, quindi aggiungerne uno nuovo non rompe gli altri. Rimandare alla demo.</aside>
+</section>
+
+<section class="slide">
+  <h2>Uno spazio per ogni gruppo</h2>
+  <div class="carte">
+    <div class="carta"><h3>Indirizzi separati</h3><p>Ogni progetto o gruppo ha il suo indirizzo, ad esempio un sottodominio dedicato.</p></div>
+    <div class="carta"><h3>Permessi propri</h3><p>Chi può modificare e chi può solo consultare lo decide ciascun gruppo.</p></div>
+    <div class="carta"><h3>Gestione condivisa</h3><p>Backup, aggiornamenti e monitoraggio sono gestiti una volta sola, non da ogni gruppo.</p></div>
+  </div>
+  <aside hidden>Restano aperte le domande su chi amministra il server e come si decidono le richieste di spazio. Le portiamo in discussione, non le decidiamo noi.</aside>
+</section>
+
+<section class="slide">
+  <h2>Solo dati con licenza aperta</h2>
+  <ul>
+    <li>Ospitiamo solo dataset con licenza open source o aperta</li>
+    <li>Non abbiamo le competenze per gestire livelli di sicurezza avanzati</li>
+    <li>Niente dati riservati o sensibili</li>
+  </ul>
+  <aside hidden>Scelta di prudenza: un’infrastruttura gestita da pochi non può garantire sicurezza avanzata, quindi il perimetro è ciò che è già pubblico per licenza. Chiarire il caso dei corpora ad accesso riservato citati tra le esigenze: restano compatibili solo se la licenza lo consente.</aside>
+</section>
+
+<section class="slide enfasi">
+  <h2>Demo</h2>
+  <ul>
+    <li>La pagina iniziale con i servizi</li>
+    <li>Una consultazione in NoSketch Engine</li>
+    <li>Un sito di progetto di esempio</li>
+  </ul>
+  <aside hidden>Demo locale in Docker (cartella demo-locale). Per NoSketch Engine usare il profilo opzionale: l’immagine pesa circa 1 GB. Se la demo non parte, usare il mockup statico.</aside>
+</section>
+
+<section class="slide">
+  <h2>Domande per la discussione</h2>
+  <div class="carte">
+    <div class="carta"><span class="n">1</span><p>Che dati o servizi usa o userebbe il vostro gruppo?</p></div>
+    <div class="carta"><span class="n">2</span><p>Oggi dove li tenete e quali problemi avete?</p></div>
+    <div class="carta"><span class="n">3</span><p>Quanto spazio e quanti utenti prevedete?</p></div>
+    <div class="carta"><span class="n">4</span><p>Serve un accesso pubblico, riservato o entrambi?</p></div>
+    <div class="carta"><span class="n">5</span><p>Quanto conta la durata nel tempo di ciò che pubblicate?</p></div>
+    <div class="carta"><span class="n">6</span><p>Chi potrebbe occuparsi della gestione?</p></div>
+  </div>
+  <aside hidden>Cuore della riunione, 25-30 minuti. Giro di tavolo, una domanda alla volta, appunti per gruppo. La domanda 6 (gestione e sostenibilità) è la più delicata: non lasciarla per ultima senza tempo.</aside>
+</section>
+
+<section class="slide">
+  <h2>Prossimi passi</h2>
+  <ol>
+    <li>Raccogliere le esigenze dei gruppi, anche dopo la riunione</li>
+    <li>Definire la soluzione tecnica più adatta</li>
+    <li>Condividere una proposta con il Dipartimento</li>
+  </ol>
+  <p><b style="color:var(--accent)">Scadenza per i contributi:</b> [data] · <b style="color:var(--accent)">Referente:</b> [nome ed email]</p>
+  <aside hidden>Chiudere con una scadenza concreta e un referente. I campi tra parentesi quadre vanno compilati prima della riunione.</aside>
+</section>
+
+<div class="note" id="note" role="region" aria-label="Note per chi presenta"></div>
+<nav class="barra" aria-label="Navigazione slide">
+  <button id="prec" aria-label="Slide precedente">←</button>
+  <span><span id="pos">1</span> / <span id="tot"></span> · frecce per muoversi, N per le note, F schermo intero</span>
+  <button id="succ" aria-label="Slide successiva">→</button>
+</nav>
+
+<script>
+const slide = [...document.querySelectorAll('.slide')];
+const note = document.getElementById('note');
+let i = 0;
+try { i = Math.min(slide.length - 1, Math.max(0, parseInt(location.hash.slice(1), 10) - 1 || 0)); } catch (e) {}
+document.getElementById('tot').textContent = slide.length;
+function mostra(n) {
+  i = Math.min(slide.length - 1, Math.max(0, n));
+  slide.forEach((s, k) => s.classList.toggle('attiva', k === i));
+  document.getElementById('pos').textContent = i + 1;
+  note.textContent = slide[i].querySelector('aside')?.textContent ?? '';
+  history.replaceState(null, '', '#' + (i + 1));
+}
+document.getElementById('prec').onclick = () => mostra(i - 1);
+document.getElementById('succ').onclick = () => mostra(i + 1);
+document.addEventListener('keydown', e => {
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); mostra(i + 1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) mostra(i - 1);
+  else if (e.key === 'Home') mostra(0);
+  else if (e.key === 'End') mostra(slide.length - 1);
+  else if (e.key === 'n' || e.key === 'N') note.classList.toggle('aperte');
+  else if (e.key === 'f' || e.key === 'F') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+});
+mostra(i);
+</script>
+</body>
+</html>
