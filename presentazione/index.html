@@ -45,6 +45,13 @@ ul, ol { padding-left: 1.2em; } li { margin-block: .3em; }
 .carta { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--accent); padding: 20px 24px; }
 .carta p { font-size: .85em; }
 .carta .n { font-family: var(--font-serif); font-size: 1.6em; color: var(--accent); font-weight: 700; }
+.gruppi { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2.5vw; align-items: start; }
+.gruppo { background: var(--surface); border: 1px solid var(--line); border-top: 6px solid var(--primary); padding: 18px 26px 12px; }
+.gruppo.gestione { border-top-color: var(--accent); }
+.gruppo h3 { margin: 0 0 8px; font: 700 1.1em var(--font-serif); color: var(--primary); text-transform: uppercase; letter-spacing: .04em; }
+.gruppo.gestione h3 { color: var(--accent); }
+.gruppo ol { font-size: .85em; max-width: none; }
+.gruppo li::marker { font-weight: 700; color: var(--accent); }
 .nega h3 { color: var(--muted); }
 
 table { border-collapse: collapse; width: 100%; font-size: .85em; background: var(--surface); }
@@ -69,54 +76,55 @@ th { background: var(--primary); color: #fff; }
 
 <section class="slide cover">
   <p class="piccolo">Laboratorio Sperimentale · LILEC</p>
-  <h1>Un server condiviso per la ricerca del Dipartimento</h1>
-  <p class="sotto">Obiettivi, servizi possibili e le vostre esigenze</p>
+  <h1>Un server condiviso per i dati del Dipartimento</h1>
   <p class="piccolo">Riunione di Dipartimento · ottobre 2026</p>
-  <aside hidden>Durata prevista circa 45 minuti (15 di presentazione, 30 di discussione). Lo scopo non è presentare una soluzione già decisa, ma raccogliere le esigenze dei gruppi prima di scegliere la soluzione tecnica.</aside>
 </section>
 
 <section class="slide enfasi">
   <h2>L’obiettivo</h2>
-  <p>Uno spazio comune per ospitare dati e servizi usati nei diversi progetti di ricerca.</p>
-  <p>Pensato per l’intero Dipartimento, non solo per il Laboratorio.</p>
-  <aside hidden>Ripartire dalla mail inviata al Dipartimento. L’iniziativa nasce da esigenze già emerse negli scorsi anni nel Laboratorio, ma la progettazione non deve essere dettata solo da quelle.</aside>
+  <p>Scopo della riunione: raccogliere le esigenze dei gruppi prima di vagliare la soluzione tecnica.</p>
+  <p><b>Il server:</b> uno spazio <b>in comune</b> per ospitare dati prodotti nell’ambito di piccoli (e grandi) progetti di ricerca del Dipartimento.</p>
 </section>
 
 <section class="slide">
   <h2>Perché un server condiviso</h2>
+  <p>L’iniziativa nasce da esigenze già emerse negli scorsi anni nel Laboratorio, ma la progettazione non deve essere dettata solo da quelle.</p>
   <div class="carte">
-    <div class="carta"><h3>Il problema</h3><p>I progetti producono piccoli dataset che, per essere accessibili, richiedono un po’ di infrastruttura. Alla fine del progetto i costi non sono più sostenibili.</p></div>
-    <div class="carta"><h3>L’idea</h3><p>Poiché i dataset sono piccoli, accorpiamo i costi e gestiamo una sola infrastruttura per tutti.</p></div>
+    <div class="carta"><h3>Il problema</h3><p>I progetti producono piccoli dataset che, per essere accessibili esternamente, richiedono un po’ di infrastruttura. Alla fine del progetto i costi non sono più sostenibili.</p></div>
+    <div class="carta"><h3>L’idea</h3><p>Poiché i dataset sono generalmente piccoli in termini di risorse di calcolo necessarie, accorpiamo i costi e gestiamo una sola infrastruttura per tutti.</p></div>
   </div>
-  <aside hidden>Questo è il motivo per cui il server esiste: dare una casa duratura agli output dei progetti dopo la fine dei finanziamenti. Dataset piccoli, quindi poche risorse da condividere.</aside>
 </section>
 
 <section class="slide">
-  <h2>Cosa è, cosa non è</h2>
-  <div class="carte">
-    <div class="carta"><h3>È</h3><ul>
-      <li>Un’infrastruttura server condivisa</li>
-      <li>Uno spazio per dati e servizi di ricerca</li>
-      <li>Un luogo per pubblicare gli output dei progetti</li>
-      <li>Una risorsa a disposizione di tutti i gruppi</li></ul></div>
-    <div class="carta nega"><h3>Non è</h3><ul>
-      <li>Un’infrastruttura di calcolo</li>
-      <li>Un cluster per training o elaborazioni pesanti</li>
-      <li>Una soluzione già decisa nei dettagli tecnici</li>
-      <li>Un servizio solo per il Laboratorio</li></ul></div>
-  </div>
-  <aside hidden>Sottolineare subito che non si tratta di calcolo: niente GPU o code di job.</aside>
+  <h2>Cosa vorremmo</h2>
+  <ul>
+    <li>Un’infrastruttura co-costruita e condivisa</li>
+    <li>Uno spazio per dati di ricerca</li>
+    <li>Un luogo per pubblicare (semplici) output dei progetti</li>
+    <li>Una risorsa stabile a disposizione di tutti i gruppi</li>
+  </ul>
 </section>
 
 <section class="slide">
-  <h2>Le esigenze emerse finora</h2>
+  <h2>Cosa non vogliamo o possiamo sostenere</h2>
+  <ul>
+    <li>Un’infrastruttura di calcolo</li>
+    <li>Account privati</li>
+    <li>Servizi personalizzati sul progetto (questo va concordato con il Laboratorio in fase di progettazione)</li>
+    <li>Supporto 24/7</li>
+    <li>Alto numero di accessi</li>
+    <li>Dati che richiedono controllo sul riuso (sensibili, con licenze restrittive)</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Le esigenze emerse finora in Laboratorio</h2>
   <div class="carte">
-    <div class="carta"><h3>Consultare corpora</h3><p>NoSketch Engine per interrogare i corpora, anche con accesso riservato.</p></div>
-    <div class="carta"><h3>Pubblicare pagine</h3><p>Siti statici di presentazione e navigazione degli output di ricerca.</p></div>
-    <div class="carta"><h3>Ospitare dati</h3><p>Un luogo stabile per dati e risorse, oltre il singolo progetto o portatile.</p></div>
+    <div class="carta"><h3>Consultare corpora</h3><p>NoSketchEngine o ANNIS per interrogare i corpora</p></div>
+    <div class="carta"><h3>Pubblicare pagine</h3><p>Siti statici di presentazione e navigazione degli output di ricerca</p></div>
+    <div class="carta"><h3>Ospitare dati</h3><p>Un luogo “facile” per depositare dati e risorse e offrire un link per il download</p></div>
   </div>
-  <p><b style="color:var(--accent)">E le vostre?</b> Queste vengono dal Laboratorio. Il punto della riunione è scoprire cosa serve agli altri gruppi.</p>
-  <aside hidden>La lista è parziale. Invitare già a pensare alle proprie esigenze; le domande specifiche arrivano alla slide 11.</aside>
+  <p><b style="color:var(--accent)">E le vostre?</b></p>
 </section>
 
 <section class="slide">
@@ -126,79 +134,52 @@ th { background: var(--primary); color: #fff; }
     <tr><td>Corpora</td><td>Interrogazione di corpora annotati</td><td>NoSketch Engine</td></tr>
     <tr><td>Siti statici</td><td>Pagine di progetto e output</td><td>Caddy</td></tr>
     <tr><td>Versionamento</td><td>Codice, dati e siti dei progetti</td><td>Forgejo</td></tr>
-    <tr><td>Annotazione</td><td>Annotazione testuale collaborativa</td><td>INCEpTION</td></tr>
-    <tr><td>Archivi XML</td><td>Testi marcati e edizioni digitali</td><td>eXist-db</td></tr>
+    <tr><td>Archivi XML</td><td>Testi marcati e edizioni digitali</td><td>eXist-db / TEI Publisher</td></tr>
     <tr><td>Database</td><td>Dati strutturati dei progetti</td><td>MySQL</td></tr>
-    <tr><td>Monitoraggio</td><td>Controllo che i servizi siano attivi</td><td>Uptime Kuma</td></tr>
   </table>
-  <aside hidden>Non è una lista chiusa. Alcuni servizi sono già provati in locale (NoSketch Engine, Forgejo), altri sono segnaposto. Chiedere se manca qualcosa di importante.</aside>
 </section>
 
 <section class="slide">
   <h2>Come potrebbe funzionare</h2>
-  <div class="flusso">
-    <div class="carta"><h3>Utenti</h3><p>Browser, un solo dominio</p></div>
-    <span class="freccia" aria-hidden="true">→</span>
-    <div class="carta"><h3>Caddy</h3><p>Un indirizzo per servizio, HTTPS automatico</p></div>
-    <span class="freccia" aria-hidden="true">→</span>
-    <div class="carta"><h3>Servizi</h3><p>Un container Docker per ciascuno, aggiornabili separatamente</p></div>
-  </div>
-  <p>Tutto descritto in Docker Compose: riproducibile, documentato e spostabile su un’altra macchina.</p>
-  <aside hidden>Ogni servizio è isolato, quindi aggiungerne uno nuovo non rompe gli altri. Rimandare alla demo.</aside>
+  <ul>
+    <li>Un solo server, con un indirizzo per ogni progetto o servizio</li>
+    <li>Ogni servizio è separato dagli altri: aggiungerne uno non disturba quelli esistenti</li>
+    <li>Manutenzione e backup si fanno in un solo posto, per tutti</li>
+  </ul>
+  <aside hidden>Tecnicamente è un proxy (Caddy) davanti a un container Docker per servizio, descritto in Docker Compose e spostabile su un’altra macchina. Entrare nel dettaglio solo se qualcuno lo chiede. Rimandare alla demo.</aside>
 </section>
 
 <section class="slide">
-  <h2>Uno spazio per ogni gruppo</h2>
+  <h2>Alcuni servizi condivisi e uno spazio per ogni progetto</h2>
   <div class="carte">
-    <div class="carta"><h3>Indirizzi separati</h3><p>Ogni progetto o gruppo ha il suo indirizzo, ad esempio un sottodominio dedicato.</p></div>
-    <div class="carta"><h3>Permessi propri</h3><p>Chi può modificare e chi può solo consultare lo decide ciascun gruppo.</p></div>
+    <div class="carta"><h3>Indirizzi separati</h3><p>Ogni servizio o “progetto” ha il suo indirizzo, ad esempio un sottodominio dedicato.</p></div>
+    <div class="carta"><h3>Un accesso per progetto</h3><p>Lo gestisce il responsabile del gruppo.</p></div>
     <div class="carta"><h3>Gestione condivisa</h3><p>Backup, aggiornamenti e monitoraggio sono gestiti una volta sola, non da ogni gruppo.</p></div>
   </div>
-  <aside hidden>Restano aperte le domande su chi amministra il server e come si decidono le richieste di spazio. Le portiamo in discussione, non le decidiamo noi.</aside>
-</section>
-
-<section class="slide">
-  <h2>Solo dati con licenza aperta</h2>
-  <ul>
-    <li>Ospitiamo solo dataset con licenza open source o aperta</li>
-    <li>Non abbiamo le competenze per gestire livelli di sicurezza avanzati</li>
-    <li>Niente dati riservati o sensibili</li>
-  </ul>
-  <aside hidden>Scelta di prudenza: un’infrastruttura gestita da pochi non può garantire sicurezza avanzata, quindi il perimetro è ciò che è già pubblico per licenza. Chiarire il caso dei corpora ad accesso riservato citati tra le esigenze: restano compatibili solo se la licenza lo consente.</aside>
-</section>
-
-<section class="slide enfasi">
-  <h2>Demo</h2>
-  <ul>
-    <li>La pagina iniziale con i servizi</li>
-    <li>Una consultazione in NoSketch Engine</li>
-    <li>Un sito di progetto di esempio</li>
-  </ul>
-  <aside hidden>Demo locale in Docker (cartella demo-locale). Per NoSketch Engine usare il profilo opzionale: l’immagine pesa circa 1 GB. Se la demo non parte, usare il mockup statico.</aside>
+  <aside hidden>Le questioni di gestione (chi amministra, finanziamento, richieste di spazio) sono nella slide con le domande per la discussione.</aside>
 </section>
 
 <section class="slide">
   <h2>Domande per la discussione</h2>
-  <div class="carte">
-    <div class="carta"><span class="n">1</span><p>Che dati o servizi usa o userebbe il vostro gruppo?</p></div>
-    <div class="carta"><span class="n">2</span><p>Oggi dove li tenete e quali problemi avete?</p></div>
-    <div class="carta"><span class="n">3</span><p>Quanto spazio e quanti utenti prevedete?</p></div>
-    <div class="carta"><span class="n">4</span><p>Serve un accesso pubblico, riservato o entrambi?</p></div>
-    <div class="carta"><span class="n">5</span><p>Quanto conta la durata nel tempo di ciò che pubblicate?</p></div>
-    <div class="carta"><span class="n">6</span><p>Chi potrebbe occuparsi della gestione?</p></div>
+  <div class="gruppi">
+    <div class="gruppo esigenze">
+      <h3>Le vostre esigenze</h3>
+      <ol>
+        <li>Che <b>dati o servizi</b> usa o userebbe il vostro gruppo?</li>
+        <li>Oggi dove li tenete e quali <b>problemi</b> avete?</li>
+        <li>Quanto <b>spazio</b> e quanti <b>utenti</b> prevedete?</li>
+      </ol>
+    </div>
+    <div class="gruppo gestione">
+      <h3>La gestione</h3>
+      <ol>
+        <li><b>Come si finanzia?</b> Una quota per progetto, un fondo di Dipartimento, o altro? E dopo la fine dei finanziamenti?</li>
+        <li><b>Chi lo amministra?</b> Chi si occupa di aggiornamenti, backup e problemi, e chi lo sostituisce?</li>
+        <li><b>Come si gestiscono le richieste di spazio?</b> Chi decide, con quali criteri e con quali limiti?</li>
+      </ol>
+    </div>
   </div>
-  <aside hidden>Cuore della riunione, 25-30 minuti. Giro di tavolo, una domanda alla volta, appunti per gruppo. La domanda 6 (gestione e sostenibilità) è la più delicata: non lasciarla per ultima senza tempo.</aside>
-</section>
-
-<section class="slide">
-  <h2>Prossimi passi</h2>
-  <ol>
-    <li>Raccogliere le esigenze dei gruppi, anche dopo la riunione</li>
-    <li>Definire la soluzione tecnica più adatta</li>
-    <li>Condividere una proposta con il Dipartimento</li>
-  </ol>
-  <p><b style="color:var(--accent)">Scadenza per i contributi:</b> [data] · <b style="color:var(--accent)">Referente:</b> [nome ed email]</p>
-  <aside hidden>Chiudere con una scadenza concreta e un referente. I campi tra parentesi quadre vanno compilati prima della riunione.</aside>
+  <aside hidden>Cuore della riunione, 25-30 minuti. Giro di tavolo, una domanda alla volta, appunti per gruppo. Le domande sulla gestione sono le più delicate: non lasciarle per ultime senza tempo. Le portiamo in discussione, non le decidiamo noi. Un solo account per progetto evita di gestire le persone una per una, ma non dice chi ha fatto cosa e va cambiato quando qualcuno lascia il gruppo; per il codice (Forgejo) sono meglio account personali.</aside>
 </section>
 
 <div class="note" id="note" role="region" aria-label="Note per chi presenta"></div>
