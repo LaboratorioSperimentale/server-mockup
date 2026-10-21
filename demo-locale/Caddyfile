@@ -57,12 +57,22 @@ http://corpora.localhost {
 	reverse_proxy noske:80
 	handle_errors {
 		header Content-Type "text/plain; charset=utf-8"
-		respond "{host}: NoSketchEngine non è avviato. Avvialo con: CORPORA_DIR=/percorso/dei/corpora docker compose --profile noske up -d" 200
+		respond "{host}: NoSketchEngine non è avviato. Avvialo con: ./prepara-esempi.sh" 200
+	}
+}
+
+# Siti di progetto di esempio: ognuno mostra la sua schermata del mockup (vedi js/interfaccia.js)
+http://progetto-alpha.localhost, http://progetto-beta.localhost, http://progetto-gamma.localhost {
+	import mockup_statici
+	handle {
+		rewrite * /interfaccia.html
+		root * /srv/mockup
+		file_server
 	}
 }
 
 # Servizi non inclusi in questa demo
-http://annotazione.localhost, http://testi.localhost, http://progetto-a.localhost, http://progetto-b.localhost {
+http://annotazione.localhost {
 	header Content-Type "text/plain; charset=utf-8"
 	respond "{host}: servizio non incluso in questa demo locale. Nel server vero risponderebbe qui." 200
 }

@@ -8,6 +8,11 @@ header p { color: var(--muted); max-width: 65ch; font-size: 18px; }
 .tabs button:hover { border-color: var(--accent); color: var(--accent); }
 .tabs button[aria-selected="true"] { background: var(--primary); border-color: var(--primary); color: var(--on-primary); font-weight: 600; }
 
+.solo .banner, .solo header, .solo #tabs { display: none; }
+.solo .chrome { display: none; }
+.solo .frame { border: 0; }
+.solo main { max-width: none; padding: 0; margin: 0; }
+.solo .screen { min-height: 100vh; }
 .frame { border: 1px solid var(--line-strong); background: var(--surface); overflow: hidden; }
 .chrome { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--surface2); border-bottom: 1px solid var(--line); }
 .dots { display: flex; gap: 6px; flex: none; }
@@ -124,3 +129,19 @@ table.mini { min-width: 0; }
 .menu span { opacity: .85; }
 .menu span.on { opacity: 1; border-bottom: 2px solid #ffffff; }
 .home-title { margin-bottom: 18px; }
+
+/* Interazioni finte dei progetti Beta e Gamma */
+.pager { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; }
+.pager .m { color: var(--muted); font-size: 14px; }
+button.pill { cursor: pointer; font: inherit; font-size: 13px; }
+button.pill.on { background: var(--primary); border-color: var(--primary); color: var(--on-primary); }
+.site-head nav span { cursor: pointer; }
+mark.hit { background: #ffe58a; color: #222; outline: 1px solid #c9a400; }
+mark[data-n] { cursor: pointer; }
+mark.sel { outline: 2px solid var(--fg); }
+.mini tr.sel td { background: var(--tint); }
+.mini tr[data-n] { cursor: pointer; }
+.facs { border: 1px solid var(--line); min-height: 160px; padding: 18px; background: repeating-linear-gradient(#f2ead7 0 28px, #d9ccaa 28px 29px); color: #5a4a25; font-family: var(--font-serif); font-style: italic; }
+pre.xml { margin: 0; padding: 14px; overflow-x: auto; border: 1px solid var(--line); background: var(--surface2); font: 13px/1.6 var(--font-mono); white-space: pre-wrap; }
+.bars div { transition: height .25s; }
+.vuoto { color: var(--muted); padding: 24px 0; }

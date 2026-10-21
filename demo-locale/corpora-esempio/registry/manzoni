@@ -1,0 +1,28 @@
+NAME "Manzoni · I promessi sposi, incipit (esempio)"
+PATH /corpora/manzoni/indexed/
+VERTICAL /corpora/manzoni/vertical/source
+ENCODING "utf-8"
+LANGUAGE "Italian"
+INFO "Primi due paragrafi. Testo di pubblico dominio; lemmi e categorie indicativi."
+DEFAULTATTR word
+MAXCONTEXT 80
+MAXDETAIL 200
+
+ATTRIBUTE word
+ATTRIBUTE lemma
+ATTRIBUTE tag
+ATTRIBUTE lc {
+  DYNAMIC utf8lowercase
+  DYNLIB internal
+  ARG1 "C"
+  FUNTYPE s
+  FROMATTR word
+  TYPE index
+  TRANSQUERY yes
+}
+
+STRUCTURE doc {
+  ATTRIBUTE id
+  ATTRIBUTE title
+}
+STRUCTURE s

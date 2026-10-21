@@ -1,0 +1,230 @@
+<doc id="giornale_0317" title="giornale_0317.txt">
+<s>
+Il	il	DET
+presidente	presidente	ADJ
+ha	avere	AUX
+ribadito	ribadito	NOUN
+di	di	ADP
+non	non	ADV
+voler	voler	NOUN
+parlare	parlare	VERB
+di	di	ADP
+candidature	candidature	NOUN
+prima	prima	NOUN
+dell'	dell'	ADP
+autunno	autunno	NOUN
+.	.	PUNCT
+</s>
+<s>
+Nel	in	ADP
+pomeriggio	pomeriggio	NOUN
+il	il	DET
+sindaco	sindaco	NOUN
+tornerà	tornerà	NOUN
+a	a	ADP
+parlare	parlare	VERB
+alla	a	ADP
+cittadinanza	cittadinanza	NOUN
+dal	da	ADP
+balcone	balcone	NOUN
+del	di	ADP
+municipio	municipio	NOUN
+.	.	PUNCT
+</s>
+<s>
+Il	il	DET
+consiglio	consiglio	NOUN
+comunale	comunale	ADJ
+ha	avere	AUX
+approvato	approvato	VERB
+il	il	DET
+bilancio	bilancio	NOUN
+con	con	ADP
+una	una	DET
+larga	larga	NOUN
+maggioranza	maggioranza	NOUN
+.	.	PUNCT
+</s>
+<s>
+La	il	DET
+biblioteca	biblioteca	NOUN
+resterà	resterà	NOUN
+aperta	aperta	NOUN
+fino	fino	ADV
+a	a	ADP
+tardi	tardi	NOUN
+durante	durante	ADJ
+la	il	DET
+settimana	settimana	NOUN
+degli	degli	ADP
+esami	esami	NOUN
+.	.	PUNCT
+</s>
+<s>
+I	il	DET
+lavori	lavori	NOUN
+sul	sul	ADP
+ponte	ponte	NOUN
+vecchio	vecchio	NOUN
+finiranno	finiranno	NOUN
+entro	entro	NOUN
+la	il	DET
+fine	fine	NOUN
+del	di	ADP
+mese	mese	NOUN
+.	.	PUNCT
+</s>
+</doc>
+<doc id="giornale_0318" title="giornale_0318.txt">
+<s>
+Il	il	DET
+museo	museo	NOUN
+ha	avere	AUX
+inaugurato	inaugurato	VERB
+ieri	ieri	ADV
+una	una	DET
+mostra	mostra	NOUN
+dedicata	dedicata	VERB
+ai	ai	ADP
+manoscritti	manoscritti	NOUN
+del	di	ADP
+Quattrocento	quattrocento	PROPN
+.	.	PUNCT
+</s>
+<s>
+Molti	molti	PRON
+studenti	studenti	ADJ
+hanno	avere	AUX
+visitato	visitato	VERB
+la	il	DET
+mostra	mostra	NOUN
+e	e	CONJ
+hanno	avere	AUX
+posto	posto	NOUN
+domande	domande	NOUN
+ai	ai	ADP
+curatori	curatori	NOUN
+.	.	PUNCT
+</s>
+<s>
+La	il	DET
+direttrice	direttrice	NOUN
+ha	avere	AUX
+detto	detto	NOUN
+che	che	CONJ
+il	il	DET
+progetto	progetto	NOUN
+continuerà	continuerà	NOUN
+anche	anche	ADV
+l'	l'	DET
+anno	anno	NOUN
+prossimo	prossimo	NOUN
+.	.	PUNCT
+</s>
+<s>
+Il	il	DET
+comune	comune	NOUN
+ha	avere	AUX
+annunciato	annunciato	VERB
+nuove	nuove	NOUN
+corse	corse	NOUN
+notturne	notturne	NOUN
+per	per	ADP
+gli	il	DET
+autobus	autobus	NOUN
+del	di	ADP
+centro	centro	NOUN
+.	.	PUNCT
+</s>
+<s>
+Nessuno	nessuno	PRON
+ha	avere	AUX
+voluto	voluto	VERB
+commentare	commentare	VERB
+la	il	DET
+notizia	notizia	NOUN
+fino	fino	ADV
+a	a	ADP
+ieri	ieri	ADV
+sera	sera	NOUN
+.	.	PUNCT
+</s>
+</doc>
+<doc id="giornale_0319" title="giornale_0319.txt">
+<s>
+Il	il	DET
+torneo	torneo	NOUN
+di	di	ADP
+scacchi	scacchi	NOUN
+si	si	PRON
+è	essere	AUX
+chiuso	chiuso	NOUN
+con	con	ADP
+la	il	DET
+vittoria	vittoria	NOUN
+di	di	ADP
+una	una	DET
+giovane	giovane	NOUN
+giocatrice	giocatrice	NOUN
+di	di	ADP
+Parma	parma	PROPN
+.	.	PUNCT
+</s>
+<s>
+Gli	il	DET
+organizzatori	organizzatori	NOUN
+sperano	sperano	VERB
+di	di	ADP
+ripetere	ripetere	VERB
+l'	l'	DET
+evento	evento	NOUN
+in	in	ADP
+primavera	primavera	NOUN
+.	.	PUNCT
+</s>
+<s>
+Il	il	DET
+presidente	presidente	ADJ
+della	di	ADP
+società	società	NOUN
+ha	avere	AUX
+parlato	parlato	VERB
+di	di	ADP
+un	un	DET
+risultato	risultato	VERB
+storico	storico	ADJ
+per	per	ADP
+la	il	DET
+città	città	NOUN
+.	.	PUNCT
+</s>
+<s>
+Domani	domani	ADV
+il	il	DET
+tempo	tempo	NOUN
+sarà	essere	AUX
+instabile	instabile	NOUN
+,	,	PUNCT
+con	con	ADP
+piogge	piogge	NOUN
+sparse	sparse	NOUN
+sulla	sulla	ADP
+pianura	pianura	NOUN
+.	.	PUNCT
+</s>
+<s>
+La	il	DET
+festa	festa	NOUN
+del	di	ADP
+paese	paese	NOUN
+si	si	PRON
+terrà	terrà	NOUN
+comunque	comunque	ADV
+nella	in	ADP
+piazza	piazza	NOUN
+davanti	davanti	ADJ
+alla	a	ADP
+chiesa	chiesa	NOUN
+.	.	PUNCT
+</s>
+</doc>

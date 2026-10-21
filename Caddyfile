@@ -30,21 +30,21 @@ git.{$DOMINIO} {
 	reverse_proxy forgejo:3000
 }
 
-# Sito di progetto A (stile ListTyp).
+# Progetto Alpha (stile ListTyp).
 # Finché il servizio "sito-a" non è definito, risponde con errore 502.
-progetto-a.{$DOMINIO} {
+progetto-alpha.{$DOMINIO} {
 	import comune
 	reverse_proxy sito-a:80
 }
 
-# Sito di progetto B (eXist-db)
-progetto-b.{$DOMINIO} {
+# Progetto Beta (eXist-db)
+progetto-beta.{$DOMINIO} {
 	import comune
 	reverse_proxy exist:8080   # TODO verificare il percorso dell'app (eXist usa il prefisso /exist)
 }
 
 # Testi TEI (TEI Publisher, dentro eXist-db)
-testi.{$DOMINIO} {
+progetto-gamma.{$DOMINIO} {
 	import comune
 	reverse_proxy exist:8080   # TODO: mandare la radice all'app, per esempio /exist/apps/tei-publisher/
 }

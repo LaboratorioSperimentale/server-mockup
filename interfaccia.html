@@ -20,10 +20,8 @@
     <button role="tab" aria-selected="false" data-s="back">Backoffice</button>
     <button role="tab" aria-selected="false" data-s="annot">Corpus annotato</button>
     <button role="tab" aria-selected="false" data-s="tei">Testi TEI</button>
-    <button role="tab" aria-selected="false" data-s="ann">Annotazione</button>
     <button role="tab" aria-selected="false" data-s="code">Codice</button>
     <button role="tab" aria-selected="false" data-s="form">Formazione</button>
-    <button role="tab" aria-selected="false" data-s="stato">Stato</button>
   </div>
 
   <div class="frame">
@@ -38,13 +36,11 @@
         <h2 class="home-title">Servizi del laboratorio</h2>
         <div class="tiles">
           <button class="tile" data-go="corpora"><strong>Corpora</strong><span class="d">Interroga i corpora</span></button>
-          <button class="tile" data-go="annot"><strong>Palinsesto</strong><span class="d">Corpus annotato</span></button>
-          <button class="tile" data-go="db"><strong>Costellazioni</strong><span class="d">Banca dati tipologica</span></button>
-          <button class="tile" data-go="tei"><strong>Tessere</strong><span class="d">Edizioni digitali</span></button>
-          <button class="tile" data-go="ann"><strong>Annotazione</strong><span class="d">Annota i testi</span></button>
+          <button class="tile" data-go="annot"><strong>Progetto Beta</strong><span class="d">Corpus annotato</span></button>
+          <button class="tile" data-go="db"><strong>Progetto Alpha</strong><span class="d">Banca dati tipologica</span></button>
+          <button class="tile" data-go="tei"><strong>Progetto Gamma</strong><span class="d">Edizioni digitali</span></button>
           <button class="tile" data-go="code"><strong>Codice</strong><span class="d">Repository e issue</span></button>
           <button class="tile" data-go="form"><strong>Formazione</strong><span class="d">Corsi e materiali</span></button>
-          <button class="tile" data-go="stato"><strong>Stato</strong><span class="d">Servizi e backup</span></button>
         </div>
       </div>
     </div>
@@ -71,7 +67,7 @@
 
     <!-- Banca dati pubblica -->
     <div class="screen" id="db" hidden>
-      <div class="site-head"><strong>Costellazioni</strong><nav><span class="on">Esempi</span><span>Lingue</span><span>Documentazione</span><span>Chi siamo</span><span>Contatti</span></nav></div>
+      <div class="site-head"><strong>Progetto Alpha</strong><nav><span class="on">Esempi</span><span>Lingue</span><span>Documentazione</span><span>Chi siamo</span><span>Contatti</span></nav></div>
       <div class="pad">
         <p class="intro">Raccolta di esempi tratti da lingue diverse, annotati con gli stessi criteri e consultabili liberamente.</p>
         <div class="filters">
@@ -93,7 +89,7 @@
 
     <!-- Backoffice -->
     <div class="screen" id="back" hidden>
-      <div class="site-head"><strong>Backoffice · Costellazioni</strong></div>
+      <div class="site-head"><strong>Backoffice · Progetto Alpha</strong></div>
       <div class="pad" id="login">
         <form class="login" id="lf">
           <h3>Accedi</h3>
@@ -117,22 +113,24 @@
       </div>
     </div>
 
-    <!-- Corpus annotato -->
+    <!-- Corpus annotato (Progetto Beta, eXist-db) -->
     <div class="screen" id="annot" hidden>
-      <div class="site-head"><strong>Palinsesto</strong><nav><span>Il progetto</span><span class="on">Interroga il corpus</span><span>Visualizzazioni</span><span>Contribuisci</span><span>Pubblicazioni</span></nav></div>
-      <div class="pad">
-        <div class="filters">
-          <label class="f">Lemma<input class="in" value="posse"></label>
-          <label class="f">Significato<select class="in"><option>Tutti</option><option>Possibilità</option><option>Permesso</option></select></label>
-          <label class="f">Periodo<select class="in"><option>Tutti</option><option>I sec. a.C.</option><option>I–II sec. d.C.</option></select></label>
-          <button class="btn" type="button">Cerca</button>
-        </div>
-        <p class="cap">Occorrenze per secolo</p>
-        <div class="bars" role="img" aria-label="Occorrenze per secolo: I a.C. 48, I d.C. 74, II 62, III 35, IV 21">
-          <div style="height:65%"><span>48</span></div><div style="height:100%"><span>74</span></div><div style="height:84%"><span>62</span></div><div style="height:47%"><span>35</span></div><div style="height:28%"><span>21</span></div>
-        </div>
+      <div class="site-head"><strong>Progetto Beta</strong><nav id="beta-nav"><span>Il progetto</span><span class="on">Interroga il corpus</span><span>Visualizzazioni</span><span>Contribuisci</span><span>Pubblicazioni</span></nav></div>
+      <div class="pad" id="beta-main">
+        <form class="filters" id="beta-form">
+          <label class="f">Lemma<input class="in" id="beta-lemma" value="posse" list="beta-lemmi" autocomplete="off"></label>
+          <datalist id="beta-lemmi"><option value="posse"><option value="debere"><option value="uelle"></datalist>
+          <label class="f">Significato<select class="in" id="beta-sig"><option>Tutti</option><option>Possibilità</option><option>Permesso</option></select></label>
+          <label class="f">Periodo<select class="in" id="beta-per"><option>Tutti</option><option>I sec. a.C.</option><option>I–II sec. d.C.</option></select></label>
+          <button class="btn" type="submit">Cerca</button>
+        </form>
+        <p class="cap" id="beta-titolo">Occorrenze per secolo</p>
+        <div class="bars" id="beta-bars" role="img"></div>
         <div class="axis"><span>I a.C.</span><span>I d.C.</span><span>II</span><span>III</span><span>IV</span></div>
+        <p class="cap mt-18">Esempi</p>
+        <table class="mini"><tbody id="beta-esempi"></tbody></table>
       </div>
+      <div class="pad" id="beta-altro" hidden><p class="meta" id="beta-altro-t"></p></div>
     </div>
 
     <!-- Sito della formazione -->
@@ -144,7 +142,7 @@
             <p class="cap">Corsi</p>
             <div>Introduzione a Python</div>
             <div class="on">Python per la linguistica</div>
-            <div>Annotare con INCEpTION</div>
+            <div>Annotare un corpus</div>
             <div>Interrogare un corpus</div>
             <p class="cap mt-14">Guide</p>
             <div>Installare Python</div>
@@ -163,50 +161,27 @@
       </div>
     </div>
 
-    <!-- TEI Publisher -->
+    <!-- TEI Publisher (Progetto Gamma, dentro eXist-db) -->
     <div class="screen" id="tei" hidden>
-      <div class="site-head"><strong>Tessere</strong><nav><span>Il progetto</span><span class="on">Testi</span><span>Indici</span><span>Cerca</span><span>Scarica</span></nav></div>
-      <div class="pad">
-        <div class="top"><h2>Esempio di testo · canto I</h2><div class="azioni"><button class="btn" type="button">Testo</button><button class="btn ghost" type="button">Facsimile</button><button class="btn ghost" type="button">XML</button></div></div>
+      <div class="site-head"><strong>Progetto Gamma</strong><nav id="gamma-nav"><span>Il progetto</span><span class="on">Testi</span><span>Indici</span><span>Cerca</span><span>Scarica</span></nav></div>
+      <div class="pad" id="gamma-main">
+        <div class="top"><h2>Esempio di testo · canto I</h2><div class="azioni" id="gamma-vista"><button class="btn" type="button" data-v="testo">Testo</button><button class="btn ghost" type="button" data-v="facsimile">Facsimile</button><button class="btn ghost" type="button" data-v="xml">XML</button></div></div>
         <div class="annwrap">
-          <div class="doc">
-            <p class="cap">Versi 1–3</p>
-            <p>Nel mezzo del <mark class="a1">cammin</mark><sup>1</sup> di nostra vita<br>mi ritrovai per una <mark class="a2">selva oscura</mark><sup>2</sup>,<br>ché la diritta via era smarrita.</p>
+          <div>
+            <div class="doc" id="gamma-doc"></div>
+            <div class="pager"><button class="btn ghost" type="button" id="gamma-prec">← Precedente</button><span class="m" id="gamma-pos"></span><button class="btn ghost" type="button" id="gamma-succ">Successivo →</button></div>
           </div>
           <div>
-            <p class="cap">Note</p>
-            <table class="mini"><tbody>
-              <tr><td><span class="chip c1"></span>1 · cammin</td><td class="m">forma apocopata di «cammino»</td></tr>
-              <tr><td><span class="chip c2"></span>2 · selva oscura</td><td class="m">immagine allegorica</td></tr>
-            </tbody></table>
+            <label class="f">Cerca nel testo<input class="in" id="gamma-cerca" placeholder="per esempio «selva»" autocomplete="off"></label>
+            <p class="cap mt-16">Note</p>
+            <table class="mini"><tbody id="gamma-note"></tbody></table>
             <p class="cap mt-16">Indici</p>
-            <div class="tags"><span class="pill">termini</span><span class="pill">luoghi</span><span class="pill">persone</span></div>
+            <div class="tags" id="gamma-tag"><button class="pill" type="button" data-i="termini">termini</button><button class="pill" type="button" data-i="luoghi">luoghi</button><button class="pill" type="button" data-i="persone">persone</button></div>
+            <p class="meta mt-14" id="gamma-indice"></p>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- INCEpTION -->
-    <div class="screen pad" id="ann" hidden>
-      <div class="top"><h2>Annotazione · progetto di esempio</h2><div class="azioni"><span class="pill">documento 3 di 12</span><button class="btn ghost" type="button">Precedente</button><button class="btn" type="button">Segna come finito</button></div></div>
-      <div class="annwrap">
-        <div class="doc">
-          <p class="cap">giornale_0317.txt</p>
-          <p><mark class="a1">Il presidente</mark> ha ribadito di non voler <mark class="a2">parlare</mark> di candidature prima della fine del mese, <mark class="a2">aggiungendo</mark> che <mark class="a1">il partito</mark> deciderà in autonomia.</p>
-          <p>Nel pomeriggio il sindaco tornerà a <mark class="a2">parlare</mark> alla cittadinanza dal balcone del municipio.</p>
-        </div>
-        <div>
-          <p class="cap">Livello</p>
-          <select class="in wide"><option>Ruolo semantico</option><option>Parte del discorso</option></select>
-          <p class="cap">Annotazioni nel documento</p>
-          <table class="mini"><tbody>
-            <tr><td><span class="chip c1"></span>Il presidente</td><td class="m">agente</td></tr>
-            <tr><td><span class="chip c2"></span>parlare</td><td class="m">evento</td></tr>
-            <tr><td><span class="chip c2"></span>aggiungendo</td><td class="m">evento</td></tr>
-            <tr><td><span class="chip c1"></span>il partito</td><td class="m">agente</td></tr>
-          </tbody></table>
-        </div>
-      </div>
+      <div class="pad" id="gamma-altro" hidden><p class="meta" id="gamma-altro-t"></p></div>
     </div>
 
     <!-- Forgejo -->
@@ -222,14 +197,13 @@
           <tr><td>README.md</td><td>Istruzioni per riprodurre i risultati</td><td class="m">1 mese fa</td></tr>
         </tbody>
       </table></div>
+      <p class="cap mt-18">Rilasci</p>
+      <div class="tw"><table class="mini"><thead><tr><th>Versione</th><th>Licenza</th><th>File</th><th></th></tr></thead><tbody>
+        <tr><td>v1.2 · dataset di esempio</td><td class="m">CC BY 4.0</td><td class="m">dataset.zip · 12 MB</td><td><a class="btn ghost">Scarica</a></td></tr>
+        <tr><td>v1.1</td><td class="m">CC BY 4.0</td><td class="m">dataset.zip · 11 MB</td><td><a class="btn ghost">Scarica</a></td></tr>
+      </tbody></table></div>
     </div>
 
-    <!-- Stato -->
-    <div class="screen pad" id="stato" hidden>
-      <div class="top"><h2>Stato dei servizi</h2><span class="who"><i class="dot"></i> Tutto in ordine · ultimo controllo 1 minuto fa</span></div>
-      <div id="svcs"></div>
-      <p class="foot mt-14">Ogni barra è un giorno degli ultimi 30. Se un servizio non risponde, l'amministratore riceve un avviso.</p>
-    </div>
   </div>
 </main>
 

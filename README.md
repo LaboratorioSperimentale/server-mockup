@@ -31,10 +31,10 @@ Le cifre di RAM sono **stime**, non misure. In particolare eXist-db, INCEpTION e
 | Caddy | Ingresso unico, certificati HTTPS automatici | porta 443 | 0,1 GB | proposto |
 | NoSketchEngine | Interrogazione dei corpora | corpora.lab.it | 2,0 GB | confermato |
 | INCEpTION | Annotazione di testi, usa MySQL | annotazione.lab.it | 2,0 GB | richiesto |
-| eXist-db + TEI Publisher | Sito e database XML di un progetto, pubblicazione di testi TEI | progetto-b.lab.it, testi.lab.it | 2,0 GB | confermato |
-| Sito di progetto A | Banca dati con sito pubblico e backoffice con login, usa MySQL | progetto-a.lab.it | 0,4 GB | confermato (modello ListTyp) |
+| eXist-db + TEI Publisher | Sito e database XML di un progetto, pubblicazione di testi TEI | progetto-beta.lab.it, progetto-gamma.lab.it | 2,0 GB | confermato |
+| Progetto Alpha | Banca dati con sito pubblico e backoffice con login, usa MySQL | progetto-alpha.lab.it | 0,4 GB | confermato (modello ListTyp) |
 | Forgejo | Repository di codice, issue e revisioni, usa MySQL | git.lab.it | 0,4 GB | confermato |
-| MySQL | Database del sito A, di Forgejo e di INCEpTION | solo interno | 0,6 GB | |
+| MySQL | Database di Progetto Alpha, di Forgejo e di INCEpTION | solo interno | 0,6 GB | |
 | Siti statici | Pagine HTML servite direttamente da Caddy | nome.lab.it | trascurabile | confermato |
 | Sito della formazione | Note di Obsidian trasformate in HTML (per esempio con Quartz), pubblico | formazione.lab.it | trascurabile | confermato |
 | Uptime Kuma | Pagina di stato e avvisi se un servizio non risponde | stato.lab.it | 0,15 GB | proposto |
@@ -45,7 +45,7 @@ Sistema operativo e Docker occupano circa 0,8 GB.
 ### Come sono collegati
 
 - Tutto il traffico entra da Caddy, che sceglie il servizio in base al nome dell'indirizzo. Nessun servizio è esposto direttamente.
-- Il sito A, Forgejo e INCEpTION salvano in MySQL.
+- Progetto Alpha, Forgejo e INCEpTION salvano in MySQL.
 - eXist-db è già un database XML e scrive nel volume dati. TEI Publisher gira dentro eXist-db.
 - NoSketchEngine legge gli indici dei corpora dal volume dati.
 - I siti statici sono file su disco, serviti da Caddy.
@@ -55,6 +55,7 @@ Sistema operativo e Docker occupano circa 0,8 GB.
 
 - **Nuovo corpus**: si converte il TEI in formato `.vert` sul proprio computer (come per DiCCAS), si carica in `/data` e si indicizza con gli strumenti di NoSketchEngine.
 - **Sito della formazione**: poche persone aggiornano le note in Obsidian, generano il sito sul proprio computer e caricano i file sul server. La generazione automatica da Forgejo richiede un runner e un po' di RAM in più e si valuterà solo se i redattori aumentano.
+- **Dati da scaricare**: si caricano in un repository Forgejo e si pubblicano come rilascio (release), che offre il link per il download. Solo dati con licenza aperta: chi deposita garantisce di avere i diritti.
 - **Siti di progetto**: l'amministratore del progetto lavora dal backoffice del sito.
 
 ## Da decidere
@@ -64,6 +65,8 @@ Sistema operativo e Docker occupano circa 0,8 GB.
 - Dove vanno i backup: storage di un altro provider o disco in laboratorio.
 - Quali corpora caricare all'inizio e quanto spazio occupano una volta indicizzati.
 - Quali altri siti portare sul server oltre ai due di partenza, con che tecnologia e chi li mantiene.
+- Perimetro del servizio: niente calcolo, account privati, dati sensibili o con licenze restrittive; supporto *best effort* e non per molti accessi.
+- Quali corpora interrogare con NoSketchEngine o con ANNIS.
 - Chi amministra il server: account, aggiornamenti, avvisi di Uptime Kuma.
 - Come i redattori caricano i file dei siti statici (per esempio accesso SFTP riservato).
 
@@ -113,7 +116,7 @@ Per provarlo:
 Ancora da fare:
 
 - **NoSketchEngine**: è definito con l'immagine `eltedh/nosketch-engine`, la stessa del fork KIParla. È stato provato nella demo locale, dietro Caddy e con un corpus vero. Come preparare i corpora è in `noske/LEGGIMI.md`. Senza password l'interfaccia è aperta a tutti.
-- **Sito A**: dipende da come è fatto il sito; nel file c'è un blocco commentato da adattare.
+- **Progetto Alpha**: dipende da come è fatto il sito; nel file c'è un blocco commentato da adattare.
 - **Backup**: non è nel file Compose. Serve un job notturno con un dump di MySQL e la copia cifrata dei volumi su uno storage esterno.
 - **Git via SSH** su Forgejo: richiede una porta in più.
 - **Segreti**: `.env` e `settings.properties` sono esclusi dal repository. Non committarli.

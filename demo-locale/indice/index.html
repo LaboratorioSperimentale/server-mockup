@@ -1,29 +1,73 @@
-<title>Demo locale</title>
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Laboratorio Sperimentale · Servizi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="/css/stile.css">
 <style>
-  ul { list-style: none; padding: 0; margin: 0 0 32px; display: grid; gap: 8px; max-width: 640px; }
-  li { background: var(--surface); border: 1px solid var(--line); padding: 10px 14px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; }
-  .nota { color: var(--muted); }
+  body { margin: 0; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding-inline: 20px; }
+  .top { background: #fff; }
+  .top .wrap { padding-block: 14px; }
+  .top img { display: block; height: 56px; width: auto; max-width: 100%; }
+  .stripe { height: 5px; background: linear-gradient(90deg, #0b66b0 0 25%, #e8333c 25% 50%, #d9328a 50% 75%, #f2c300 75% 100%); }
+  .menu { background: var(--banner); }
+  .menu .wrap { display: flex; flex-wrap: wrap; gap: 4px 28px; padding-block: 12px; }
+  .menu a { color: #fff; text-decoration: none; opacity: .85; padding-bottom: 2px; }
+  .menu a:hover, .menu a.on { opacity: 1; border-bottom: 2px solid #fff; }
+
+  .hero { padding-block: 56px 28px; }
+  .hero h1 { margin: 0 0 12px; font-size: clamp(30px, 4.5vw, 46px); }
+  .hero p { margin: 0; max-width: 62ch; font-size: 19px; color: var(--muted); }
+
+  .servizi { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding-block: 16px 56px; }
+  .servizio { display: flex; flex-direction: column; gap: 6px; padding: 24px 24px 20px; background: var(--surface); border: 1px solid var(--line); border-top: 5px solid var(--primary); text-decoration: none; color: inherit; min-height: 150px; }
+  .servizio:hover, .servizio:focus-visible { border-top-color: var(--accent); background: var(--tint); outline: none; }
+  .servizio strong { font: 700 24px/1.2 var(--font-serif); color: var(--primary); }
+  .servizio .d { font-size: 17px; color: var(--fg); }
+  .servizio .vai { margin-top: auto; padding-top: 10px; font-weight: 600; color: var(--accent); }
+
+  .demo { background: var(--surface2); border-top: 1px solid var(--line); padding-block: 22px; font-size: 15px; color: var(--muted); }
+  .demo .wrap { display: flex; flex-wrap: wrap; gap: 8px 40px; justify-content: space-between; }
+  .demo b { color: var(--fg); }
+  .demo a { color: var(--primary); }
 </style>
-<div class="banner"><div class="banner-in"><div class="logo"><img src="/img/logo-laboratorio.png" alt="Laboratorio Sperimentale" width="900" height="195"></div><span>Demo locale</span></div></div>
+</head>
+<body>
+<header>
+  <div class="top"><div class="wrap"><img src="/img/logo-laboratorio.png" alt="Laboratorio Sperimentale" width="900" height="195"></div></div>
+  <div class="stripe"></div>
+  <nav class="menu" aria-label="Principale"><div class="wrap">
+    <a class="on" href="/">Servizi</a>
+    <a href="http://progetto-alpha.localhost:8080/">Progetti</a>
+    <a href="http://formazione.localhost:8080/">Formazione</a>
+    <a href="http://git.localhost:8080/">Codice e dati</a>
+  </div></nav>
+</header>
+
 <main>
-  <h1>Indirizzi della demo</h1>
-  <h2>Funzionano</h2>
-  <ul>
-    <li><a href="http://lab.localhost:8080/">lab.localhost:8080</a><span class="nota">interfaccia del mockup</span></li>
-    <li><a href="http://lab.localhost:8080/schema">lab.localhost:8080/schema</a><span class="nota">schema e servizi</span></li>
-    <li><a href="http://formazione.localhost:8080/">formazione.localhost:8080</a><span class="nota">sito statico di esempio</span></li>
-    <li><a href="http://git.localhost:8080/">git.localhost:8080</a><span class="nota">Forgejo</span></li>
-    <li><a href="http://stato.localhost:8080/">stato.localhost:8080</a><span class="nota">Uptime Kuma</span></li>
-    <li><a href="http://corpora.localhost:8080/">corpora.localhost:8080</a><span class="nota">NoSketchEngine (facoltativo)</span></li>
-  </ul>
-  <h2>Non inclusi</h2>
-  <ul>
-    <li><a href="http://annotazione.localhost:8080/">annotazione.localhost:8080</a><span class="nota">INCEpTION</span></li>
-    <li><a href="http://testi.localhost:8080/">testi.localhost:8080</a><span class="nota">TEI Publisher</span></li>
-    <li><a href="http://progetto-a.localhost:8080/">progetto-a.localhost:8080</a><span class="nota">sito di progetto A</span></li>
-    <li><a href="http://progetto-b.localhost:8080/">progetto-b.localhost:8080</a><span class="nota">sito di progetto B (eXist-db)</span></li>
-  </ul>
+  <div class="wrap hero">
+    <h1>Servizi del Laboratorio</h1>
+    <p>Corpora da interrogare, banche dati, edizioni digitali, codice e dati di ricerca. Tutto in un unico posto.</p>
+  </div>
+
+  <div class="wrap servizi">
+    <a class="servizio" href="http://corpora.localhost:8080/"><strong>Corpora</strong><span class="d">Cerca parole e costruzioni nei corpora del Laboratorio: concordanze, frequenze, collocazioni.</span><span class="vai">Apri →</span></a>
+    <a class="servizio" href="http://progetto-beta.localhost:8080/"><strong>Progetto Beta</strong><span class="d">Un corpus annotato, da esplorare con ricerche per forma e categoria.</span><span class="vai">Apri →</span></a>
+    <a class="servizio" href="http://progetto-alpha.localhost:8080/"><strong>Progetto Alpha</strong><span class="d">Banca dati tipologica con schede consultabili e area riservata ai redattori.</span><span class="vai">Apri →</span></a>
+    <a class="servizio" href="http://progetto-gamma.localhost:8080/"><strong>Progetto Gamma</strong><span class="d">Edizioni digitali di testi, con note, indici e ricerca.</span><span class="vai">Apri →</span></a>
+    <a class="servizio" href="http://git.localhost:8080/"><strong>Codice e dati</strong><span class="d">Programmi, issue e dataset con licenza aperta, pronti da scaricare.</span><span class="vai">Apri →</span></a>
+    <a class="servizio" href="http://formazione.localhost:8080/"><strong>Formazione</strong><span class="d">Corsi, guide e materiali delle attività formative.</span><span class="vai">Apri →</span></a>
+  </div>
 </main>
+
+<footer class="demo">
+  <div class="wrap">
+    <div><b>Demo locale.</b> Contenuti inventati. Forgejo: utente <code>maria</code>, password <code>demo1234</code>; nel backoffice di Progetto Alpha vale qualsiasi password.</div>
+    <div><a href="http://lab.localhost:8080/">Schermate del mockup</a> · <a href="http://lab.localhost:8080/schema">Schema del server</a></div>
+  </div>
+</footer>
+</body>
+</html>

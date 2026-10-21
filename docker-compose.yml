@@ -92,7 +92,7 @@ services:
     mem_limit: 3g
 
   exist:
-    # eXist-db ospita il sito del progetto B e TEI Publisher.
+    # eXist-db ospita Progetto Beta e TEI Publisher.
     image: existdb/existdb:${EXIST_VERSION}   # TODO verificare la versione
     restart: unless-stopped
     environment:
@@ -137,7 +137,7 @@ services:
 
   # --- Da configurare ----------------------------------------------------
   #
-  # Sito di progetto A (modello ListTyp, MySQL): dipende da come è fatto il sito.
+  # Progetto Alpha (modello ListTyp, MySQL): dipende da come è fatto il sito.
   # Serve un container con l'applicazione, collegato al database "sito_a".
   #
   #  sito-a:

@@ -29,6 +29,11 @@ services:
       FORGEJO__database__DB_TYPE: sqlite3
       FORGEJO__server__DOMAIN: git.localhost
       FORGEJO__server__ROOT_URL: http://git.localhost:8080/
+      # salta la pagina di installazione: utenti e repository li crea prepara-esempi.sh
+      FORGEJO__security__INSTALL_LOCK: "true"
+      FORGEJO__service__DISABLE_REGISTRATION: "true"
+      FORGEJO__service__REQUIRE_SIGNIN_VIEW: "false"
+      FORGEJO__server__OFFLINE_MODE: "true"
     volumes:
       - forgejo_data:/data
 
@@ -52,7 +57,7 @@ services:
       HTACCESS: ""
       HTPASSWD: ""
     volumes:
-      - ${CORPORA_DIR:-./corpora}:/corpora
+      - ${CORPORA_DIR:-./corpora-esempio}:/corpora
 
 volumes:
   forgejo_data:
