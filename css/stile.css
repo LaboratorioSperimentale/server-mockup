@@ -1,15 +1,15 @@
 /* Stile condiviso, ripreso dal sito del Laboratorio Sperimentale:
-   blu istituzionale, bordeaux all'hover, fondo grigio chiaro, angoli quadrati,
+   blu e rosso del logo (rosso all'hover), fondo grigio chiaro, angoli quadrati,
    Merriweather per titoli ed etichette, Source Sans per il testo. */
 
 :root {
   --bg: #f8f8f8; --surface: #ffffff; --surface2: #f4f4f4;
   --fg: #222222; --muted: #5b6670;
   --line: #dbdfe0; --line-strong: #aab5bb;
-  --primary: #00457c; --on-primary: #ffffff;
-  --accent: #81042d; --on-accent: #ffffff;
-  --tint: #e0f1f9;
-  --banner: #00457c; --bar: #81042d; --header-bg: #ffffff;
+  --primary: #0063a5; --on-primary: #ffffff;
+  --accent: #e62e39; --on-accent: #ffffff;
+  --tint: #e1eef8;
+  --banner: #0063a5; --bar: #e62e39; --header-bg: #ffffff;
   --ok: #1a7f43; --warn: #a85d00;
   --font-body: "Source Sans 3", "SourceSans", Verdana, Geneva, Tahoma, sans-serif;
   --font-serif: Merriweather, Georgia, "Times New Roman", serif;
@@ -20,18 +20,18 @@
   --fg: #e6ecf1; --muted: #98a8b6;
   --line: #2a3d4f; --line-strong: #4a6075;
   --primary: #6db3ea; --on-primary: #06223a;
-  --accent: #f08aa9; --on-accent: #2a0a15;
+  --accent: #ff8a90; --on-accent: #2d0709;
   --tint: #12334d;
-  --banner: #0b2f4d; --bar: #a8123f; --header-bg: #13222f;
+  --banner: #0b2f4d; --bar: #e62e39; --header-bg: #13222f;
   --ok: #4cc27f; --warn: #f0b457; color-scheme: dark; } }
 :root[data-theme="dark"] {
   --bg: #0d1822; --surface: #13222f; --surface2: #1a2b3a;
   --fg: #e6ecf1; --muted: #98a8b6;
   --line: #2a3d4f; --line-strong: #4a6075;
   --primary: #6db3ea; --on-primary: #06223a;
-  --accent: #f08aa9; --on-accent: #2a0a15;
+  --accent: #ff8a90; --on-accent: #2d0709;
   --tint: #12334d;
-  --banner: #0b2f4d; --bar: #a8123f; --header-bg: #13222f;
+  --banner: #0b2f4d; --bar: #e62e39; --header-bg: #13222f;
   --ok: #4cc27f; --warn: #f0b457; color-scheme: dark; }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -52,7 +52,7 @@ p { margin: 0; max-width: 65ch; }
 /* fascia in testa: logo del laboratorio e striscia con i colori del logo */
 .banner { background: var(--header-bg); color: var(--fg); position: relative; }
 .banner::after { content: ""; display: block; height: 5px;
-  background: linear-gradient(90deg, #0b66b0 0 25%, #e8333c 25% 50%, #d9328a 50% 75%, #f2c300 75% 100%); }
+  background: linear-gradient(90deg, #0063a5 0 25%, #e62e39 25% 50%, #d8318a 50% 75%, #f2c300 75% 100%); }
 .banner-in { max-width: 1040px; margin: 0 auto; padding-block: 16px;
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; }

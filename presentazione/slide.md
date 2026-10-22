@@ -31,7 +31,7 @@ L'iniziativa nasce da esigenze già emerse negli scorsi anni nel Laboratorio, ma
 
 ---
 
-## Cosa non vogliamo o possiamo sostenere
+## Cosa **non** vogliamo o possiamo sostenere
 
 - Un'infrastruttura di calcolo
 - Account privati
@@ -64,23 +64,13 @@ L'iniziativa nasce da esigenze già emerse negli scorsi anni nel Laboratorio, ma
 
 ---
 
-## Come potrebbe funzionare
-
-- Un solo server, con un indirizzo per ogni progetto o servizio
-- Ogni servizio è separato dagli altri: aggiungerne uno non disturba quelli esistenti
-- Manutenzione e backup si fanno in un solo posto, per tutti
-
-> Note: tecnicamente è un proxy (Caddy) davanti a un container Docker per servizio, descritto in Docker Compose e spostabile su un'altra macchina. Entrare nel dettaglio solo se qualcuno lo chiede. Rimandare alla demo.
-
----
-
 ## Alcuni servizi condivisi e uno spazio per ogni progetto
 
 - **Indirizzi separati**: ogni servizio o "progetto" ha il suo indirizzo, ad esempio un sottodominio dedicato.
 - **Un accesso per progetto**: lo gestisce il responsabile del gruppo.
 - **Gestione condivisa**: backup, aggiornamenti e monitoraggio sono gestiti una volta sola, non da ogni gruppo.
 
-> Note: le questioni di gestione (chi amministra, finanziamento, richieste di spazio) sono nella slide con le domande per la discussione.
+> Note: tecnicamente è un proxy (Caddy) davanti a un container Docker per servizio, descritto in Docker Compose e spostabile su un'altra macchina; entrare nel dettaglio solo se qualcuno lo chiede, e rimandare alla demo. Le questioni di gestione (chi amministra, finanziamento, richieste di spazio) sono nella slide con le domande per la discussione.
 
 ---
 

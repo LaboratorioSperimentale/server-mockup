@@ -4,26 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Server di Dipartimento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap">
 <style>
 /* Palette ripresa da ../css/stile.css; contenuto in slide.md */
 :root {
   --bg: #f8f8f8; --surface: #ffffff; --fg: #222222; --muted: #5b6670;
-  --line: #dbdfe0; --primary: #00457c; --accent: #81042d;
-  --font-body: "Source Sans 3", Verdana, Geneva, Tahoma, sans-serif;
-  --font-serif: Merriweather, Georgia, "Times New Roman", serif;
+  --line: #dbdfe0; --primary: #0063a5; --accent: #e62e39;
+  --font-body: Montserrat, Verdana, Geneva, Tahoma, sans-serif;
+  --font-serif: Montserrat, Verdana, Geneva, sans-serif;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0d1822; --surface: #13222f; --fg: #e6ecf1; --muted: #98a8b6;
-  --line: #2a3d4f; --primary: #6db3ea; --accent: #f08aa9; } }
+  --line: #2a3d4f; --primary: #6db3ea; --accent: #ff8a90; } }
 :root[data-theme="dark"] {
   --bg: #0d1822; --surface: #13222f; --fg: #e6ecf1; --muted: #98a8b6;
-  --line: #2a3d4f; --primary: #6db3ea; --accent: #f08aa9; }
+  --line: #2a3d4f; --primary: #6db3ea; --accent: #ff8a90; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; }
-body { background: var(--bg); color: var(--fg); font: 22px/1.5 var(--font-body); overflow: hidden; }
+body { background: var(--bg); color: var(--fg); font: 20px/1.55 var(--font-body); overflow: hidden; }
 .striscia { position: fixed; top: 0; left: 0; right: 0; height: 6px; z-index: 5;
-  background: linear-gradient(90deg, #0b66b0 0 25%, #e8333c 25% 50%, #d9328a 50% 75%, #f2c300 75% 100%); }
+  background: linear-gradient(90deg, #0063a5 0 25%, #e62e39 25% 50%, #d8318a 50% 75%, #f2c300 75% 100%); }
 
 .slide { position: absolute; inset: 6px 0 48px; padding: 5vh 8vw; display: none; flex-direction: column; justify-content: center; gap: 3vh; overflow-y: auto; }
 .slide.attiva { display: flex; }
@@ -106,7 +109,7 @@ th { background: var(--primary); color: #fff; }
 </section>
 
 <section class="slide">
-  <h2>Cosa non vogliamo o possiamo sostenere</h2>
+  <h2>Cosa <b style="color:var(--accent)">non</b> vogliamo o possiamo sostenere</h2>
   <ul>
     <li>Un’infrastruttura di calcolo</li>
     <li>Account privati</li>
@@ -140,23 +143,13 @@ th { background: var(--primary); color: #fff; }
 </section>
 
 <section class="slide">
-  <h2>Come potrebbe funzionare</h2>
-  <ul>
-    <li>Un solo server, con un indirizzo per ogni progetto o servizio</li>
-    <li>Ogni servizio è separato dagli altri: aggiungerne uno non disturba quelli esistenti</li>
-    <li>Manutenzione e backup si fanno in un solo posto, per tutti</li>
-  </ul>
-  <aside hidden>Tecnicamente è un proxy (Caddy) davanti a un container Docker per servizio, descritto in Docker Compose e spostabile su un’altra macchina. Entrare nel dettaglio solo se qualcuno lo chiede. Rimandare alla demo.</aside>
-</section>
-
-<section class="slide">
   <h2>Alcuni servizi condivisi e uno spazio per ogni progetto</h2>
   <div class="carte">
     <div class="carta"><h3>Indirizzi separati</h3><p>Ogni servizio o “progetto” ha il suo indirizzo, ad esempio un sottodominio dedicato.</p></div>
     <div class="carta"><h3>Un accesso per progetto</h3><p>Lo gestisce il responsabile del gruppo.</p></div>
     <div class="carta"><h3>Gestione condivisa</h3><p>Backup, aggiornamenti e monitoraggio sono gestiti una volta sola, non da ogni gruppo.</p></div>
   </div>
-  <aside hidden>Le questioni di gestione (chi amministra, finanziamento, richieste di spazio) sono nella slide con le domande per la discussione.</aside>
+  <aside hidden>Tecnicamente è un proxy (Caddy) davanti a un container Docker per servizio, descritto in Docker Compose e spostabile su un’altra macchina; entrare nel dettaglio solo se qualcuno lo chiede, e rimandare alla demo. Le questioni di gestione (chi amministra, finanziamento, richieste di spazio) sono nella slide con le domande per la discussione.</aside>
 </section>
 
 <section class="slide">

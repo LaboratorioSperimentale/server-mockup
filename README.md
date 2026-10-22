@@ -132,5 +132,5 @@ Ancora da fare:
 
 ## Stile
 
-Lo stile riprende il sito del laboratorio (https://site.unibo.it/laboratorio-sperimentale/it): blu `#00457c`, bordeaux `#81042d` all'hover, fondo grigio chiaro, angoli quadrati, Merriweather per titoli ed etichette, Source Sans per il testo.
+Lo stile riprende il sito del laboratorio (https://site.unibo.it/laboratorio-sperimentale/it): blu `#0063a5` e rosso `#e62e39` presi dal logo (rosso anche all'hover), fondo grigio chiaro, angoli quadrati, Merriweather per titoli ed etichette, Source Sans per il testo.
 
